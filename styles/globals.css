@@ -3,97 +3,120 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'OpenSans';
-  src: url('./fonts/Gazpacho/Gazpacho Black.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Bold.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Heavy.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Black.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Bold.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Heavy.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Light.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Medium.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Regular.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Italic Thin.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Light.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Medium.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Regular.ttf');
-  src: url('./fonts/Gazpacho/Gazpacho Thin.ttf');
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'OpenSans';
+    src: url('./fonts/Gazpacho/Gazpacho Black.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Bold.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Heavy.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Black.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Bold.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Heavy.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Light.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Medium.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Regular.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Italic Thin.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Light.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Medium.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Regular.ttf');
+    src: url('./fonts/Gazpacho/Gazpacho Thin.ttf');
+    font-weight: 400;
+    font-style: normal;
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  background-color: #000000;
-  color: #E5EFFB;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #000000;
+    color: #e5effb;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-.backdrop{
-  backdrop-filter: blur(2px);
-  filter: blur(2px);
-
+.backdrop {
+    backdrop-filter: blur(2px);
+    filter: blur(2px);
 }
-.hero{
-  cursor: none;
+.hero {
+    cursor: none;
 }
-.gray{
-  filter: gray;
+.gray {
+    filter: gray;
 }
 .ring {
-  transition: all 10ms ease-in;
-  transition: all 10ms ease-out;
-  position: fixed;
-  border-radius: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  pointer-events: none;
-  left: -100px;
-  top: 50%;
-  mix-blend-mode: difference;
-  background-color: #2C0058;
-  z-index: 10000;
-  height: 5rem;
-  width: 5rem;
-  filter: blur(40px);
+    transition: all 10ms ease-in;
+    transition: all 10ms ease-out;
+    position: fixed;
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+    left: -100px;
+    top: 50%;
+    mix-blend-mode: difference;
+    background-color: #2c0058;
+    z-index: 10000;
+    height: 5rem;
+    width: 5rem;
+    filter: blur(40px);
 }
-.ring-white{
-  transition: all 10ms ease-in;
-  transition: all 10ms ease-out;
-  position: fixed;
-  border-radius: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  pointer-events: none;
-  left: -100px;
-  top: 50%;
-  mix-blend-mode: difference;
-  background-color: #ffffff;
-  z-index: 10000;
-  height: 2rem;
-  width: 2rem;
-  filter: blur(30px);
+.ring-white {
+    transition: all 10ms ease-in;
+    transition: all 10ms ease-out;
+    position: fixed;
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+    left: -100px;
+    top: 50%;
+    mix-blend-mode: difference;
+    background-color: #ffffff;
+    z-index: 10000;
+    height: 2rem;
+    width: 2rem;
+    filter: blur(30px);
 }
-.line{
-  height: 1px;
-  width: 100%;
-  background-color: #ffffff60;
+.line {
+    height: 1px;
+    width: 100%;
+    background-color: #ffffff60;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 8rem;
+    background-color: grey;
+    color: white;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-bottom: 5rem;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
 @media screen and (max-width: 800px) {
-  .ring{
+    .ring {
+        display: none;
+    }
+}
+::-webkit-scrollbar {
     display: none;
-  }
 }
-::-webkit-scrollbar{
-  display: none;
+html {
+    scroll-behavior: smooth;
 }
-html{scroll-behavior:smooth}
