@@ -14,7 +14,7 @@ function Blog() {
                     <p></p>
                 </div>
 
-                <Image alt="" src="" fill />
+                {/* <Image alt="" src="" fill /> */}
 
                 {/* Block content */}
             </div>

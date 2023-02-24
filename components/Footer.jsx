@@ -22,48 +22,13 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer className="relative w-screen h-screen overflow-hidden flex flex-col justify-end">
+        <footer className="absolute -mt-[20rem] w-screen h-screen overflow-hidden flex flex-col justify-end">
             <div className="ring-white" ref={ring}></div>
-            <div className="absolute z-0 w-screen h-[80vh] bottom-[10%]">
-                <Image src={'/gigaOrb.svg'} fill alt={'Feather'} />
-            </div>
             <div
                 className="w-full h-[55%] bg-main rounded-t-[5rem] flex flex-col items-center hero font-thin relative z-20 justify-end"
                 ref={body}
             >
-                <div className="relative flex justify-center items-center top-[-10%]">
-                    <div className="absolute -top-[1.5rem] z-10 left-0">
-                        <Image
-                            src={'/logo.svg'}
-                            width={50}
-                            height={50}
-                            className="backdrop "
-                            alt={'Feather'}
-                        />
-                    </div>
-                    <div className="absolute -top-20 z-10 -left-10">
-                        <Image
-                            src={'/logo.svg'}
-                            width={150}
-                            height={150}
-                            alt={'Feather'}
-                        />
-                    </div>
-                    <div className="absolute -top-10 -left-10 -z-1 animate-spin-slow">
-                        <Image
-                            src={'/orb.svg'}
-                            width={100}
-                            height={100}
-                            alt={'Feather'}
-                        />
-                    </div>
-                    <Link href="#h">
-                        <p className="rounded-[50%] border-[1px] border-[#ffffff70] p-10 w-[10rem] h-[10rem] flex items-center text-center">
-                            Join The Movement
-                        </p>
-                    </Link>
-                </div>
-                <div className="line mt-10"></div>
+                <div className="line mt-5"></div>
                 <div className="flex justify-between pl-10 h-[50%]  w-screen ">
                     <ul className="opacity-[0.8] font-Gazapacho italic font-[1000] text-8xl leading-[80%] tracking-widest text-left w-3/5">
                         <li className="relative z-5">Latest News</li>

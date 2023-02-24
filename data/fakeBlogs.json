@@ -1,0 +1,91 @@
+[
+    {
+    "title": "The Secret Garden",
+    "body": "The story of a young girl who discovers a magical garden.",
+    "imageURL": "https://images.unsplash.com/photo-1563714193017-5a5fb60bc02b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c2VjcmV0JTIwZ2FyZGVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-secret-garden",
+    "tags":["mystery","fiction"],
+    "authorID": "jane_doe"
+    }
+    
+    ,{
+    "title": "The Great Gatsby",
+    "body": "A tragic tale of love, money, and the American Dream.",
+    "imageURL": "https://images.unsplash.com/photo-1547080791-7a8e15f5e3e8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGdyZWF0JTIwZ2F0c2J5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-great-gatsby",
+    "tags":["mystery","action"],
+    "authorID": "jane_doe"
+    }
+    
+    ,{
+    "title": "The Catcher in the Rye",
+    "body": "The story of a teenage boy's journey through adolescence.",
+    "imageURL": "https://images.unsplash.com/photo-1663354729504-c7dd8bf9e8cc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGhlJTIwY2F0Y2hlciUyMGluJTIwdGhlJTIwcnllfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-catcher-in-the-rye",
+    "tags":["mystery","action"],
+    "authorID": "jane_doe"
+    }
+    
+    ,{
+    "title": "Pride and Prejudice",
+    "body": "A classic tale of romance and societal expectations.",
+    "imageURL": "https://images.unsplash.com/photo-1593384020913-3518b4aa6fee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cHJpZGUlMjBhbmQlMjBwcmVqdWRpY2V8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60",
+    "slug": "pride-and-prejudice",
+    "tags":["love","fun"],
+    "authorID": "john_smith"
+    }
+    
+    ,{
+    "title": "To Kill a Mockingbird",
+    "body": "A poignant story of racial injustice and the power of compassion.",
+    "imageURL": "https://images.unsplash.com/photo-1672317535351-54ed5ebf791d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dG8lMjBraWxsJTIwYSUyMG1vY2tpbmdiaXJkfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "to-kill-a-mockingbird",
+    "tags":["drama","sci-fi"],
+    "authorID": "john_smith"
+    }
+    
+    ,{
+    "title": "1984",
+    "body": "A dystopian novel about a totalitarian society.",
+    "imageURL": "https://images.unsplash.com/photo-1590613607026-15c463e30ca5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8MTk4NHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "1984",
+    "tags":["sci-fi","drama"],
+    "authorID": "john_smith"
+    }
+    
+    ,{
+    "title": "The Hobbit",
+    "body": "The story of a hobbit's adventure to reclaim treasure.",
+    "imageURL": "https://plus.unsplash.com/premium_photo-1668917804825-1629ab4ef195?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aG9iYml0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-hobbit",
+    "tags":["fantasy","action"],
+    "authorID": "john_smith"
+    }
+    
+    ,{
+    "title": "The Hunger Games",
+    "body": "A story of survival and rebellion in a dystopian society.",
+    "imageURL": "https://images.unsplash.com/photo-1507427100689-2bf8574e32d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8aHVuZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-hunger-games",
+    "tags":["sci-fi","action"],
+    "authorID": "john_smith"
+    }
+    
+    ,{
+    "title": "Harry Potter and the Philosopher's Stone",
+    "body": "The first book in the popular series about a boy wizard.",
+    "imageURL": "https://images.unsplash.com/photo-1571936804022-90d128047136?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aGFycnl8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60",
+    "slug": "harry-potter-and-the-philosophers-stone",
+    "tags":["fantasy","action"],
+    "authorID": "mary_johnson"
+    }
+    
+    ,{
+    "title": "The Lord of the Rings",
+    "body": "A fantasy epic about a hobbit's quest to destroy an evil ring.",
+    "imageURL": "https://images.unsplash.com/photo-1562249004-1f7289c19c49?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cmluZ3N8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60",
+    "slug": "the-lord-of-the-rings",
+    "tags":["fantasy","action"],
+    "authorID": "mary_johnson"
+    }
+]
