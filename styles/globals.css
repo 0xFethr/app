@@ -150,6 +150,14 @@ a {
     -webkit-backdrop-filter: blur(2.4px);
     border: 1px solid rgba(181, 181, 181, 0.3);
 }
+.glassPriceCard{
+    background: rgba(175, 175, 175, 0.15);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(18.4px);
+    -webkit-backdrop-filter: blur(18.4px);
+    border: 2px solid rgba(175, 175, 175, 0.168);
+    }
 .glassNoBorder{
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(4.4px);

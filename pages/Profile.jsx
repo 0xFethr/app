@@ -1,47 +1,65 @@
-import Profile from '@/components/Profile'
-import React, { useState } from 'react'
+import ProfileComponent from '@/components/Profile'
+import BlogCard from '@/components/BlogCard'
+import fakeBlogs from '@/data/fakeBlogs.json'
+import fakeProfiles from '@/data/fakeProfiles.json'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
 function Profile() {
     const [blogs, setBlogs] = useState([])
     const [profiles, setProfiles] = useState([])
+    const [user,setUser] = useState({})
+    useEffect(() => {
+        setBlogs(fakeBlogs)
+        setProfiles(fakeProfiles)
+        setUser(fakeProfiles[0])
+    },[])
 
     return (
-        <div className="">
-            user?
-            <Profile
-                profilePic={author.imageURL}
-                name={author.name}
-                slug={author.slug}
-                isPremium={author.isPremium}
+        <div className="flex flex-col items-center pt-20 mt-20 w-screen overflow-x-hidden">
+            {user?
+            <ProfileComponent
+                profilePic={user.imageURL}
+                name={user.name}
+                slug={user.slug}
+                isPremium={user.isPremium}
                 user
             />
             :
-            <Profile
-                profilePic={author.imageURL}
-                name={author.name}
-                slug={author.slug}
-                isPremium={author.isPremium}
+            <ProfileComponent
+                profilePic={user.imageURL}
+                name={user.name}
+                slug={user.slug}
+                isPremium={user.isPremium}
                 author
-            />
-            <div className="">
-                {blogs.map((blog, index) => (
-                    <BlogCard
-                        title={blog.title}
-                        author={blog.author}
-                        image={blog.imageURL}
-                        slug={blog.slug}
-                    />
-                ))}
+            />}
+            <div className='flex overflow-x-auto  w-screen pb-10 my-10'>
+                <div className="flex flex-nowrap ml-40 ">
+                    {blogs.map((blog, index) => (
+                        <BlogCard
+                            key={index}
+                            title={blog.title}
+                            image={blog.imageURL}
+                            slug={blog.slug}
+                        />
+                    ))}
+                </div>
+                <div className='bg-[#79797900] border-none h-[40%] w-[35%] glassNoBorder absolute mb-10 right-0 top-[30%]'></div>
             </div>
-            <div className=""></div>
-            <div className="">
-                {profiles.map((profile, index) => (
-                    <Profile
-                        profilePic={profile.imageURL}
-                        name={profile.name}
-                        slug={profile.slug}
-                    />
-                ))}
+
+            <div className="lineApp my-10"></div>
+
+            <div className='flex justify-center ml-[10%] w-screen'>
+                <div className="flex flex-wrap w-[80%] p-5 my-10 gap-20 ">
+                    {profiles.map((profile, index) => (
+                        <ProfileComponent
+                            key={index}
+                            profilePic={profile.imageURL}
+                            name={profile.name}
+                            slug={profile.slug}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     )

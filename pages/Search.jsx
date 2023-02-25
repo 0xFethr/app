@@ -18,6 +18,7 @@ function Search() {
 
     return (
         <div className='flex flex-col items-center   w-screen  select-none pt-20 h-auto overflow-x-hidden'>
+            {/* <div className='glassBG w-screen h-screen bg-[#8d8d8d21] border-none fixed z-0 top-0'></div> */}
             <SearchBar
                 searchParam={searchParam}
                 setSearchParam={setSearchParam}
@@ -61,16 +62,6 @@ function Search() {
                     ))}
                 </div>
             </div>
-
-            <div className="absolute z-0 -bottom-[30vh] w-full">
-                <Image  
-                    className='w-full h-[20%]'
-                    src={'/gigaOrb.svg'}    
-                    width={90}
-                    height={20}
-                    alt={'Feather'}/>
-            </div>
-
         </div>
     )
 }

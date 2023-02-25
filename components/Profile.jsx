@@ -1,55 +1,119 @@
 // import Image from 'next/image'
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
-function Profile({ profilePic, name, slug, isPremium, user, author }) {
+function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed }) {
     return (
         <>
             {author && (
                 <>
-                    <div className="">
-                        {/* <Image src={''} alt="" fill /> */}
+                    <div className="absolute z-0 top-0 blur-xl animate splat">
+                        <Image
+                            src={'/profileOrb.svg'}
+                            width={500}
+                            height={500}
+                            alt={'Feather'}
+                        />
                     </div>
-                    <div className="">
-                        {/* <Image src={''} alt="" fill /> */}
-                        <h2></h2>
+                    <div className="relative z-10 flex felx-col justify-center h-auto w-auto">
+                        <Image 
+                            className='rounded-full'
+                            src={profilePic} 
+                            width={150} 
+                            height={150} 
+                            alt={'Feather'} 
+                        />
                     </div>
-                    <div className="">
-                        {/* <Image src={''} alt="" fill /> */}
-                        <button className="" onChange={(e) => {}}></button>
+                    <div className="flex gap-2 items-center relative z-10">
+                        {isPremium&&<Image 
+                            src={'/tick.svg'} 
+                            width={20} 
+                            height={20} 
+                            alt={'Feather'} 
+                        />}
+                        <h2>{name}</h2>
+                    </div>
+                    <div className="flex flex-row-reverse gap-2 relative z-10">
+                        <button 
+                            className=" hover:opacity-50 p-1 rounded-xl my-2" 
+                            onChange={(e) => {}}>
+                            {isSubscribed?
+                            <Image 
+                                src={'/bell-tick.svg'} 
+                                width={30} 
+                                height={30} 
+                                alt={'Feather'} 
+                            />:
+                            <Image 
+                                src={'/bell.svg'} 
+                                width={30} 
+                                height={30} 
+                                alt={'Feather'} 
+                            />}
+                        </button>
+                        <button 
+                            className="bg-[#B68D2E] hover:bg-[#846620] p-1 rounded-xl my-2" 
+                            onChange={(e) => {}}>
+                            Subscribe
+                        </button>
                     </div>
                 </>
             )}
 
             {user && (
                 <>
-                    <div className="">
-                        {/* <Image src={''} alt="" fill /> */}
-                        <div>
-                            {/* <Image src={''} alt="" fill /> */}
-                        </div>
+                    <div className="absolute z-0 top-0 blur-xl animate splat">
+                        <Image
+                            src={'/profileOrb.svg'}
+                            width={500}
+                            height={500}
+                            alt={'Feather'}
+                        />
                     </div>
-                    <div className="">
-                        {/* <Image src={''} alt="" fill /> */}
-                        <h2></h2>
+                    <div className="relative">
+                        <Image 
+                            className='rounded-full'
+                            src={profilePic} 
+                            width={150} 
+                            height={150} 
+                            alt={'Feather'} 
+                        />
+                        <Link
+                            href={'/Livestream'} 
+                            className='absolute bottom-0 right-0'>
+                            <Image 
+                                src={'/vid.svg'} 
+                                width={50} 
+                                height={50} 
+                                alt={'Feather'} 
+                            />
+                        </Link>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                        {isPremium&&<Image 
+                            src={'/tick.svg'} 
+                            width={20} 
+                            height={20} 
+                            alt={'Feather'} 
+                        />}
+                        <h2>{name}</h2>
                     </div>
                 </>
             )}
 
-            {!user & !author && (
+            {!user&&!author && (
                 <>
                     <a className="relative flex felx-col justify-center h-auto w-auto" href={`/Profile/${slug}`}>
                         <p className="absolute bottom-10 z-10 font-[800]">{name}</p>
                         <div className='absolute glassNoBorder bg-[#83838356] rounded-b-full bottom-0 h-[50%] w-full'></div>
-                        <div className="">
-                            <Image 
-                                className='rounded-full'
-                                src={profilePic} 
-                                width={150} 
-                                height={150} 
-                                alt={'Feather'} 
-                            />
-                        </div>
+                        <Image 
+                            className='rounded-full'
+                            src={profilePic} 
+                            width={150} 
+                            height={150} 
+                            alt={'Feather'} 
+                        />
                     </a>
                 </>
             )}

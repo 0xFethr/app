@@ -21,7 +21,7 @@ function Publish() {
                 </button>
 
                 <div className="">
-                    <Image src={''} alt="" fill />
+                    {/* <Image src={''} alt="" fill /> */}
                 </div>
             </div>}
 
@@ -34,7 +34,7 @@ function Publish() {
                 <Tags/>
 
                 <div className="">
-                    <Image src={''} alt="" fill />
+                    {/* <Image src={''} alt="" fill /> */}
                 </div>
             </div>}
         </>

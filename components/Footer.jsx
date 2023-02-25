@@ -22,7 +22,15 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer className="absolute -mt-[20rem] w-screen h-screen overflow-hidden flex flex-col justify-end">
+        <footer className="relative -mt-[20rem] w-screen h-screen overflow-hidden flex flex-col justify-end">
+            <div className="absolute z-0 top-0 w-full">
+                <Image  
+                    className='w-full h-[20%]'
+                    src={'/gigaOrb.svg'}    
+                    width={90}
+                    height={20}
+                    alt={'Feather'}/>
+            </div>
             <div className="ring-white" ref={ring}></div>
             <div
                 className="w-full h-[55%] bg-main rounded-t-[5rem] flex flex-col items-center hero font-thin relative z-20 justify-end"

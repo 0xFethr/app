@@ -1,0 +1,20 @@
+{
+    "basic": [
+        "Article limit",
+        "No notifications",
+        "No live reports",
+        "No subscriptions",
+        "No author proofing",
+        "No wardens",
+        "Premium articles"
+    ],
+    "pro": [
+        "Article limit",
+        "Notifications",
+        "Live reports",
+        "Subscriptions",
+        "Author proofing",
+        "Wardens",
+        "Premium articles"
+    ]
+}
