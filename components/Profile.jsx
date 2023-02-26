@@ -26,7 +26,8 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                         />
                     </div>
                     <div className="flex gap-2 items-center relative z-10">
-                        {isPremium&&<Image 
+                        {isPremium&&
+                        <Image 
                             src={'/tick.svg'} 
                             width={20} 
                             height={20} 

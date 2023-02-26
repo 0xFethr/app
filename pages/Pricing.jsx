@@ -6,7 +6,7 @@ import React from 'react'
 function Pricing() {
     return (
         <>
-            <div className="flex gap-20 w-screen h-[80vh] justify-center items-end  relative z-10">
+            <div className="flex gap-20 w-screen h-screen justify-center items-center  relative z-10 pt-20 mt-10">
                 <PriceCard
                     type={false}
                     options={pricingData.basic} 
@@ -16,7 +16,7 @@ function Pricing() {
                     options={pricingData.pro} 
                 />
             </div> 
-            <div className="absolute opacity-70 -top-10 z-0 left-[22%]">
+            <div className="absolute opacity-70 top-[10%] z-0 left-[25%]">
                 <Image  
                     src={'/logo.svg'}
                     width={1000}
@@ -24,7 +24,7 @@ function Pricing() {
                     alt={'Feather'}
                 />
             </div>      
-            <div className="absolute opacity-70 top-[5%] left-[22%] z-0 animate splat">
+            <div className="absolute opacity-70 top-[10%] left-[22%] z-0 animate splat">
                 <Image  
                     src={'/orb.svg'}
                     width={1000}
