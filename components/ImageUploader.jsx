@@ -17,15 +17,13 @@ function ImageUploader({ image, setImage}) {
     }
 
     return (
-        <label className="w-[30%] h-[40%] rounded-3xl border-2 border-[#ffffff79] flex flex-col justify-center items-center">
-            <div className="">
-                <Image 
-                    src={image} 
-                    width={100}
-                    height={100}
-                    alt='Image Upload' 
-                />
-            </div>
+        <label className="glassNoBorder bg-[#cccccc35] w-[30%] h-[40%] rounded-3xl border-2 border-[#ffffff79] flex flex-col justify-center items-center">
+            <Image 
+                src={image} 
+                width={100}
+                height={100}
+                alt='Image Upload' 
+            />
             <input
                 ref={imageUploader}
                 type="file"

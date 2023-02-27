@@ -4,7 +4,8 @@
         "name": "Jane Doe",
         "imageURL": "https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png",
         "blogs": ["the-secret-garden","the-great-gatsby","the-catcher-in-the-rye"],
-        "isPremium": false
+        "isPremium": false,
+        "subscribed":["john_smith","mary_johnson"]
     }
     
     ,{
@@ -12,7 +13,8 @@
         "name": "John Smith",
         "imageURL": "https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png",
         "blogs": ["pride-and-prejudice","to-kill-a-mockingbird","1984","the-hobbit","the-hunger-games"],
-        "isPremium": true
+        "isPremium": true,
+        "subscribed":["jane_doe"]
     }
     
     ,{
@@ -20,6 +22,7 @@
         "name": "Mary Johnson",
         "imageURL": "https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png",
         "blogs": ["harry-potter-and-the-philosophers-stone","the-lord-of-the-rings"],
-        "isPremium": false
+        "isPremium": false,
+        "subscribed":["jane_doe","john_smith"]
     }
 ]

@@ -59,7 +59,7 @@ function Publish() {
 
             {step==1&&
             <div className='w-screen h-screen flex flex-col gap-5 justify-center items-center py-20 mt-20 overflow-hidden select-none'>
-                <div className="glassNoBorder rounded-3xl bg-[#6c6c6c45] w-[80%] h-[95%] mb-10 relative z-10 flex flex-col gap-5 flex flex-col gap-5 justify-center items-center">
+                <div className="glassNoBorder rounded-3xl bg-[#6c6c6c45] w-[80%] h-[95%] mb-10 relative z-10  flex flex-col gap-5 justify-center items-center">
                     <ImageUploader
                         image={image}
                         setImage={setImage}

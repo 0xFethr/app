@@ -1,9 +1,11 @@
 // import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+import StreamBox from './StreamBox'
 import Image from 'next/image'
 import Link from 'next/link'
 
 function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed }) {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     return (
         <>
             {author && (
@@ -16,7 +18,9 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                             alt={'Feather'}
                         />
                     </div>
-                    <div className="relative z-10 flex felx-col justify-center h-auto w-auto">
+                    <Link 
+                        href={`/Profile/${slug}`}
+                        className="relative z-10 flex felx-col justify-center h-auto w-auto">
                         <Image 
                             className='rounded-full'
                             src={profilePic} 
@@ -24,7 +28,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                             height={150} 
                             alt={'Feather'} 
                         />
-                    </div>
+                    </Link>
                     <div className="flex gap-2 items-center relative z-10">
                         {isPremium&&
                         <Image 
@@ -35,6 +39,11 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                         />}
                         <h2>{name}</h2>
                     </div>
+                    <StreamBox
+                        isModalOpen={isModalOpen}
+                        setIsModalOpen={setIsModalOpen}
+                        author={name}
+                    />
                     <div className="flex flex-row-reverse gap-2 relative z-10">
                         <button 
                             className=" hover:opacity-50 p-1 rounded-xl my-2" 
@@ -55,8 +64,8 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                         </button>
                         <button 
                             className="bg-[#B68D2E] hover:bg-[#846620] p-1 rounded-xl my-2" 
-                            onChange={(e) => {}}>
-                            Subscribe
+                            onClick={(e) => setIsModalOpen(true)}>
+                            Donate
                         </button>
                     </div>
                 </>

@@ -39,7 +39,7 @@ function Slider({ blogs }) {
                 </div>
 
                 <Link 
-                    href={`/${blogs[N]?.slug}`} 
+                    href={`/Blog/${blogs[N]?.slug}`} 
                     className='border-2 border-[#ffffff83] w-full h-full rounded-3xl absolute z-0'>
                     <Image 
                         className='aspect-video w-full h-full object-fill rounded-3xl grayscale ' 

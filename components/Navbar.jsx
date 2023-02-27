@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useScroll, useSpring } from 'framer-motion'
+import { useScroll, useSpring, motion } from 'framer-motion'
 import { Router, useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,8 +15,9 @@ function Navbar() {
       }, [router.asPath]);
 
     return (
-        <div className='w-full flex justify-center'>
-            <nav className="flex w-[90%] rounded-2xl items-center justify-between fixed top-0 italic font-[100] text-[#ffffff92] px-10 glass mt-2 z-50 bg-[#cccccc1e]">
+        <div className='w-full flex justify-center relative'>
+            <nav className="flex w-[90%] rounded-2xl items-center justify-between fixed top-0 italic font-[100] text-[#ffffff92] px-10 glass mt-2 z-50 bg-[#cccccc1e] overflow-x-hidden">
+            
                 <Link 
                     href={'/Home'} 
                     className="flex flex-col">
@@ -58,7 +59,7 @@ function Navbar() {
                 </div>
                 
 
-                <Link href={'/Profile'} className=" flex flex-col relative">
+                <Link href={'/Login'} className=" flex flex-col relative">
                     <div className=''>
                         {user?
                         <Image 
@@ -78,16 +79,20 @@ function Navbar() {
                     </div>
                 </Link>
 
-                {route=='/Profile'&&<div className="absolute z-0 -right-10 animate splat delay-1">
-                        <Image 
-                            src={'/purpleOrb.svg'} 
-                            width={150} 
-                            height={100} 
-                            alt={'Feather'} 
-                        />
+                {route=='/Login'&&
+                <div className="absolute z-0 -right-10 animate splat delay-1">
+                    <Image 
+                        src={'/purpleOrb.svg'} 
+                        width={150} 
+                        height={100} 
+                        alt={'Feather'} 
+                    />
                 </div>}
-
-                {route=='/Blog'&&<div className="absolute"></div>}
+                {route.includes('/Blog')&&
+                <motion.div 
+                    style={{scaleX}}
+                    className="fixed -z-20 opacity-80 blur-sm rounded-full gradient right-0 origin-left h-[2rem] -bottom-2 left-2">
+                </motion.div>}
             </nav>
         </div>
     )

@@ -3,17 +3,21 @@ import Profile from '@/components/Profile'
 import SearchBar from '@/components/SearchBar'
 import blogsData from '@/data/fakeBlogs.json'
 import profilesData from '@/data/fakeProfiles.json'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 function Search() {
+    const router = useRouter()
+    const { keyword } = router.query;
     const [searchParam, setSearchParam] = useState('')
     const [blogs, setBlogs] = useState([])
     const [profiles, setProfiles] = useState([])
-
+    
     useEffect(() => {
         setBlogs(blogsData)
         setProfiles(profilesData)
+        setSearchParam(keyword)
     },[])
 
     return (
