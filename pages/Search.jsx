@@ -17,7 +17,8 @@ function Search() {
     useEffect(() => {
         setBlogs(blogsData)
         setProfiles(profilesData)
-        setSearchParam(keyword)
+        keyword?setSearchParam(keyword):
+        setSearchParam('')
     },[])
 
     return (
