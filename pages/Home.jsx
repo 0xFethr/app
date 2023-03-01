@@ -24,7 +24,7 @@ function Home() {
                 <Slider blogs={blogs} />
             </div>
 
-            <div className='glassBG w-screen h-screen bg-[#8d8d8d21] border-none fixed z-0 top-0'>
+            <div className='w-screen h-screen bg-[#8d8d8d21] border-none fixed z-0 top-0'>
                 <div className="fixed z-0 -bottom-20 right-0 ">
                     <Image
                         className='blur-3xl opacity-50'
