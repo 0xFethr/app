@@ -1,0 +1,52 @@
+type User @createModel(accountRelation: SINGLE, description: "User profile"){
+    #model
+    name: String! @string(minLength: 1, maxLength: 500),
+    address: String! @string(minLength: 1, maxLength: 500),
+    imageURL: String @string(minLength: 1, maxLength: 1000),
+    isPremium: Boolean,
+    tokens: Float,
+
+    # relationships
+    subscriptions: [User] @relationFrom(model: "User", property: "address"),
+    favourites: [Blog] @relationFrom(model: "Blog", property: "address"),
+    blogs:[Blog] @relationFrom(model: "Blog", property: "address"),
+    fleets:[Fleet] @relationFrom(model: "Fleet", property: "address"),
+    leftSwipe:[Fleet] @relationFrom(model: "Fleet", property: "address"),
+    rightSwipe:[Fleet] @relationFrom(model: "Fleet", property: "address"),
+    wardens:[Warden] @relationFrom(model: "Warden", property: "id"),
+}
+
+type Tag @createModel(accountRelation: LIST, description: "Post Tags"){
+    title: String! @string(minLength: 1, maxLength: 500),
+}
+
+type Blog @createModel(accountRelation: LIST, description: "Blog post"){
+    #model
+    title: String! @string(minLength: 1, maxLength: 500),
+    address: String! @string(minLength: 1, maxLength: 500),
+    tags:[Tag] @list(minLength: 1, maxLength: 500),
+    isFree: Boolean,
+    pricing: Float,
+
+    # relationships
+    author: DID! @accountReference
+}
+
+type Warden @createModel(accountRelation: LIST, description: "AI wardens"){
+    #model
+    id: ID!,
+    name: String! @string(minLength: 1, maxLength: 500), 
+
+    # relationships
+    author: DID! @accountReference
+}
+
+type Fleet @createModel(accountRelation: LIST, description: "Fleet posts"){
+    #model
+    title: String! @string(minLength: 1, maxLength: 500),
+    address: String! @string(minLength: 1, maxLength: 500),
+    tags:[Tag] @list(minLength: 1, maxLength: 500),
+
+    # relationships
+    author: DID! @accountReference
+}
