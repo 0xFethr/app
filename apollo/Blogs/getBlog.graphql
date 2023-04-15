@@ -1,0 +1,9 @@
+query getBlog($id: ID = "") {
+    node(id: $id) {
+        ... on Blog {
+            id
+            title
+        }
+    }
+}
+# get blog by id, tag, name or realted to a user

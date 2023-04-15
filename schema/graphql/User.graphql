@@ -1,0 +1,9 @@
+type User @createModel(accountRelation: SINGLE, description: "User profile"){
+    #model
+    userDID: DID! @accountReference, 
+    name: String! @string(minLength: 0, maxLength: 50),
+    address: String! @string(minLength: 0, maxLength: 30),
+    imageURL: String @string(minLength: 0, maxLength: 100),
+    isPremium: Boolean,
+    tokens: Float,
+}

@@ -1,0 +1,7 @@
+type Subscription  @loadModel(id: "kjzl6hvfrbw6cayjlqsoqtp3odctbbrrqwim43vzb9bo03y0kykmwktzk0jah2q"){
+    id:ID!
+}
+
+type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
+    subscriptions:[Subscription] @relationFrom(model: "Subscription", property: "subscriptionID")
+}

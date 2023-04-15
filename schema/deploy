@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+composedb composite:deploy composite.json --ceramic-url=http://localhost:7007 --did-private-key=<private_key>

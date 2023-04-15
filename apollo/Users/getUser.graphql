@@ -1,0 +1,10 @@
+query getUser($id: ID = "") {
+  node(id: $id) {
+    ... on User {
+      name
+      address
+      imageURL
+    }
+  }
+}
+# get user by name, id or by blogs

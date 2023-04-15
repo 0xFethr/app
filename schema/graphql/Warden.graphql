@@ -1,0 +1,6 @@
+type Warden @createModel(accountRelation: LIST, description: "AI wardens"){
+    #model
+    name: String! @string(minLength: 0, maxLength: 50), 
+    # relationships
+    author: DID! @accountReference
+}

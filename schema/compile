@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+composedb composite:compile composite.json client.js

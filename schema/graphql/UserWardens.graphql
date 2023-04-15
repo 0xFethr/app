@@ -1,0 +1,8 @@
+type Warden  @loadModel(id: "kjzl6hvfrbw6cacrbm9alvok87jtyivhptyi6y7ses8zstzp5gd6ypr8sjh4gjn"){
+    id:ID!
+}
+
+type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
+    subscriptions:[Warden] @relationFrom(model: "Warden", property: "wardenID")
+}
+bash

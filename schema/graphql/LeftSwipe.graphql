@@ -1,0 +1,15 @@
+type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
+    id: ID!,
+}
+
+type Fleet @loadModel(id: "kjzl6hvfrbw6c7yhqjubjjvi95ckxsbav43mpab9s9mgoc9aunfbid4vmrbv383"){
+    id: ID!,
+}
+
+type LeftSwipe @createModel(accountRelation: LIST, description: "Left swipes of a user"){
+    #relation
+    userID: StreamID! @documentReference(model: "User"),
+    user: User! @relationDocument(property: "userID"),
+    fleetID: StreamID! @documentReference(model: "Fleet"),
+    leftSwipe: Fleet! @relationDocument(property: "fleetID"),
+}
