@@ -1,11 +1,15 @@
-type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
-    id: ID!,
+type User
+  @loadModel(
+    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+  ) {
+  id: ID!
 }
 
-type Subscription @createModel(accountRelation: LIST, description: "User Subscriptions"){
-    #model
-    userID: StreamID! @documentReference(model: "User")
-    user: User! @relationDocument(property: "userID")
-    subscriptionID: StreamID! @documentReference(model: "User")
-    subscription: User! @relationDocument(property: "subscriptionID")  
+type Subscription
+  @createModel(accountRelation: LIST, description: "User Subscriptions") {
+  #model
+  userID: StreamID! @documentReference(model: "User")
+  user: User! @relationDocument(property: "userID")
+  subscriptionID: StreamID! @documentReference(model: "User")
+  subscription: User! @relationDocument(property: "subscriptionID")
 }

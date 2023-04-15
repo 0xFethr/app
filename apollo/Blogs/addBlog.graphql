@@ -1,5 +1,29 @@
-mutation AddBlog($teamLead:ID!, $name:String!, $lastMilestone:String!, $status:Status!){
-    addDepartment(department:{teamLead:$teamLead, name:$name, lastMilestone:$lastMilestone,status:$status}){
-        ...departmentInfo
-    }
+mutation addBlog( $title:String!, $address:String!, $userDID:String!, $isFree:Boolean, $pricing:Float, $author:DID!, tags:[Tag]) {
+	createBlog(
+		input: {
+			content: {
+				title: $title, 
+				author: $author, 
+				address: $address, 
+				isFree: $isFree, 
+				pricing: $pricing, 
+				tags:  $tags
+			}
+		}
+	)
+	{
+		document {
+			id
+			author {
+				id
+			}
+			address
+			isFree
+			pricing
+			title
+			tags{
+				name
+			}
+		}
+	}
 }

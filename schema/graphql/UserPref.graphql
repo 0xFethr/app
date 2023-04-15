@@ -1,12 +1,22 @@
-type LeftSwipe  @loadModel(id: "kjzl6hvfrbw6c7wysddotjpkx05ffj4jqc83pv4ojx6dnb3uvusqam829pw00l0"){
-    id:ID!
+type LeftSwipe
+  @loadModel(
+    id: "kjzl6hvfrbw6cavpwewuxhk4tnyz0dzlcw470hu5c2296w472wzx87498pxno3y"
+  ) {
+  id: ID!
 }
 
-type RightSwipe  @loadModel(id: "kjzl6hvfrbw6c5rgnad85wug6a2l6irbd90lzj0vgc2947tpr6w6w656c69wm18"){
-    id:ID!
+type RightSwipe
+  @loadModel(
+    id: "kjzl6hvfrbw6cav6ohfewdugx8ckmyjjfsursoyuy1owr1hj4qirb07g1t31v7n"
+  ) {
+  id: ID!
 }
 
-type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
-    leftSwipe:[LeftSwipe] @relationFrom(model: "LeftSwipe", property: "fleetID")
-    rightSwipe:[RightSwipe] @relationFrom(model: "RightSwipe", property: "fleetID")
+type User
+  @loadModel(
+    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+  ) {
+  leftSwipe: [LeftSwipe] @relationFrom(model: "LeftSwipe", property: "fleetID")
+  rightSwipe: [RightSwipe]
+    @relationFrom(model: "RightSwipe", property: "fleetID")
 }

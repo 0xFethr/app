@@ -1,8 +1,13 @@
-type Warden  @loadModel(id: "kjzl6hvfrbw6cacrbm9alvok87jtyivhptyi6y7ses8zstzp5gd6ypr8sjh4gjn"){
-    id:ID!
+type Warden
+  @loadModel(
+    id: "kjzl6hvfrbw6c67vsd24pbma4zrfx4pshvjtfbc909j55ueq3rjktl2b07r70me"
+  ) {
+  id: ID!
 }
 
-type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
-    subscriptions:[Warden] @relationFrom(model: "Warden", property: "wardenID")
+type User
+  @loadModel(
+    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+  ) {
+  subscriptions: [Warden] @relationFrom(model: "Warden", property: "wardenID")
 }
-bash

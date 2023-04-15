@@ -1,7 +1,13 @@
-type Favourite @loadModel(id: "kjzl6hvfrbw6c5ntnbcqzy0mgbjw0xjnulejhwuh7364lwdph2lghcutt9q5u4r"){
-    id: ID!
+type Favourite
+  @loadModel(
+    id: "kjzl6hvfrbw6c98hrjr3j7it2ut1283z7962lm0decln9qmsi48sxbp7tzig92t"
+  ) {
+  id: ID!
 }
 
-type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
-    favourites:[Favourite] @relationFrom(model: "Favourite", property: "blogID")
+type User
+  @loadModel(
+    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+  ) {
+  favourites: [Favourite] @relationFrom(model: "Favourite", property: "blogID")
 }

@@ -1,9 +1,0 @@
-query getAllBlogs{
-    blogIndex(){
-        edges{
-            node{
-                
-            }
-        }
-    }
-}

@@ -1,10 +1,14 @@
-query getUser($id: ID = "") {
-  node(id: $id) {
-    ... on User {
-      name
-      address
-      imageURL
-    }
-  }
+query getUser($id:String!) {
+	node(id:$id){
+	... on CeramicAccount {
+			user {
+				id
+				isPremium
+				imageURL
+				name
+				tokens
+				address
+			}
+		}
+	}
 }
-# get user by name, id or by blogs

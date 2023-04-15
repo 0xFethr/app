@@ -1,1 +1,12 @@
-# get fleet by id, tag, name or realted to a user
+query getUser($id:String!) {
+	node(id:$id){
+	... on Fleet {
+			fleet {
+				title
+				address
+				tags
+				author
+			}
+		}
+	}
+}

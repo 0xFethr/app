@@ -1,0 +1,19 @@
+query getUsers {
+	blogIndex(first: 1000) {
+		edges {
+			node {
+				id
+				author {
+					id
+				}
+				address
+				isFree
+				pricing
+				title
+				tags{
+					name
+				}
+			}
+		}
+	}
+}

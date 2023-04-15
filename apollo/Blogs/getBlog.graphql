@@ -1,9 +1,20 @@
-query getBlog($id: ID = "") {
-    node(id: $id) {
-        ... on Blog {
-            id
-            title
-        }
-    }
+query getUser($id:String!) {
+	node(id:$id){
+	... on Blog {
+			blog {
+				id
+				author {
+					id
+				}
+				address
+				isFree
+				pricing
+				title
+				tags{
+					name
+				}
+			}
+		}
+	}
 }
 # get blog by id, tag, name or realted to a user

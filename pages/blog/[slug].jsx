@@ -32,7 +32,7 @@ function Blog() {
                     {fakeBlog?.tags?.map((tag, index) => (
                         <Link 
                             key={index} 
-                            href={`/Search?keyword=${tag}`}>
+                            href={`/search?keyword=${tag}`}>
                             <h2 className="italic text-[100] text-accent">{tag}</h2>
                         </Link>
                     ))}

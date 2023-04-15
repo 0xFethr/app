@@ -1,0 +1,12 @@
+query getUsers {
+	fleetIndex(first: 20) {
+		edges {
+			node {
+				title
+				address
+				tags
+				author
+			}
+		}
+	}
+}

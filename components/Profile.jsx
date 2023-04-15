@@ -19,7 +19,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                         />
                     </div>
                     <Link 
-                        href={`/Profile/${slug}`}
+                        href={`/profile/${slug}`}
                         className="relative z-10 flex felx-col justify-center h-auto w-auto">
                         <Image 
                             className='rounded-full'
@@ -90,7 +90,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
                             alt={'Feather'} 
                         />
                         <Link
-                            href={'/Livestream'} 
+                            href={'/livestream'} 
                             className='absolute bottom-0 right-0'>
                             <Image 
                                 src={'/vid.svg'} 
@@ -114,7 +114,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 
             {!user&&!author && (
                 <>
-                    <a className="relative flex felx-col justify-center h-auto w-auto" href={`/Profile/${slug}`}>
+                    <a className="relative flex felx-col justify-center h-auto w-auto" href={`/profile/${slug}`}>
                         <p className="absolute bottom-10 z-10 font-[800]">{name}</p>
                         <div className='absolute glassNoBorder bg-[#83838356] rounded-b-full bottom-0 h-[50%] w-full'></div>
                         <Image 

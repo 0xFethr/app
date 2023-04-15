@@ -1,11 +1,24 @@
-mutation addUser($address: String = "", $name: String = "", $userDID: DID = "") {
-  createUser(
-      input: {content: {name: $name, address: $address, userDID: $userDID}}
-  ) {
-    document {
-        address
-        id
-        name
-    }
-  }
+mutation addUser($username:String!, $address:String!, $imageURL:String, $isPremium:Boolean, $tokens:Float) {
+	createUser(
+		input: {
+			content: {
+				name: $username, 
+				address: $address, 
+				imageURL: $imageURL, 
+				isPremium: $isPremium, 
+				tokens: $tokens
+			}
+		}
+	)
+
+	{
+		document {
+			address
+			id
+			imageURL
+			isPremium
+			name
+			tokens
+		}
+	}
 }

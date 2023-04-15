@@ -68,7 +68,7 @@ function StreamBox({ author, isModalOpen, setIsModalOpen }) {
                 </input>
                 <a
                     className="absolute -right-10 z-10 "
-                    href={'/Profile'}>
+                    href={'/profile'}>
                     <Image 
                         src={'/tickName.svg'} 
                         width={20} 

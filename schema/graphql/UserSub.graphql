@@ -1,7 +1,14 @@
-type Subscription  @loadModel(id: "kjzl6hvfrbw6cayjlqsoqtp3odctbbrrqwim43vzb9bo03y0kykmwktzk0jah2q"){
-    id:ID!
+type Subscription
+  @loadModel(
+    id: "kjzl6hvfrbw6c6dvz3svm4ooksdq8omjcxh8kfae8rkdxflwafwvcr17pfjr7ij"
+  ) {
+  id: ID!
 }
 
-type User @loadModel(id: "kjzl6hvfrbw6c6s017berbiq8yb009koyqjfqkw8reoz2h9e8d2gze73hvzq1v2"){
-    subscriptions:[Subscription] @relationFrom(model: "Subscription", property: "subscriptionID")
+type User
+  @loadModel(
+    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+  ) {
+  subscriptions: [Subscription]
+    @relationFrom(model: "Subscription", property: "subscriptionID")
 }

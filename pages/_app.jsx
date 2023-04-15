@@ -13,15 +13,15 @@ import '@/styles/globals.css'
 export default function App({ Component, pageProps }) {
 	return (
 		<WagmiConfig client={wagmiClient}>
-			
-			<AuthProvider>
-				<ApolloProvider client={Apolloclient}>
-					<Navbar />
-					<Component {...pageProps} className='scale-[0.80]'/>
-					<Footer />
-				</ApolloProvider>
-			</AuthProvider>
 
+			<ApolloProvider client={Apolloclient}>
+				<AuthProvider>
+					<Navbar />
+						<Component {...pageProps} className='scale-[0.80]'/>
+					<Footer />
+				</AuthProvider>
+			</ApolloProvider>
+			
 			<Web3Modal projectId={walletConnectProjectId} ethereumClient={ethereumClient} />
 		</WagmiConfig>
 	)

@@ -1,5 +1,4 @@
 import { ApolloClient, ApolloLink, InMemoryCache, Observable } from '@apollo/client'
-import { AuthContext } from '@/context/AuthContext'
 import { composeClient } from '@/context/AuthContext'
 
 const link = new ApolloLink((operation) => {

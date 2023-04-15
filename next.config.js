@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
+const withGraphql = require('next-plugin-graphql')
+const withImages = require("next-images");
+
+module.exports = withGraphql(withImages({
   images: {
       domains: ['www.pngitem.com','images.unsplash.com','plus.unsplash.com','explorer-api.walletconnect.com'],
   },
-}
-
-module.exports = nextConfig
+  webpack(config, options) {
+      return config;
+  }
+}))
