@@ -34,7 +34,6 @@ async function createCACAO(opts, ethProvider, account, signMessageAsync) {
     });
     const data = await signMessageAsync({message:siweMessage.signMessage()})
     siweMessage.signature = data;
-    console.log(data)
     return Cacao.fromSiweMessage(siweMessage);
 }
 

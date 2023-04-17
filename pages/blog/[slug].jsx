@@ -9,20 +9,12 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 function Blog() {
-    // const [author, setAuthor] = useState()
-    // const [blog, setBlog] = useState()
-    // const [authorBlogs, setAuthorBlogs] = useState()
-    // const [loading, isLoading] = useState(true)
-
     const router = useRouter()
     const { slug } = router.query;
 
     const fakeBlog = fakeBlogs.find(blog => blog?.slug==slug)
     const fakeProfile =  fakeProfiles.find(profile=>profile?.slug==fakeBlog?.authorID)
     const fakeAuthorBlog = fakeBlogs.filter(blog => blog?.authorID==fakeProfile?.slug)
-
-
-
 
     return (
         <div className="flex w-screen justify-around mt-20 pt-20 ">
@@ -45,11 +37,7 @@ function Blog() {
                     width={500} 
                     height={500} 
                 />
-                <SanityBlockContent
-                    // blocks={fakeBlog?.body}
-                    blocks={parse(fakeBlog?.body)}
 
-                />
                 <p className='my-10'>{fakeBlog?.body}</p>
             </div>
 

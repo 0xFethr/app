@@ -1,4 +1,4 @@
-query getUsers {
+query getBlogs {
 	blogIndex(first: 1000) {
 		edges {
 			node {

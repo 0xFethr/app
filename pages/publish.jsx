@@ -2,16 +2,15 @@ import ImageUploader from '@/components/ImageUploader'
 import Tags from '@/components/Tags'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { NFTContract } from '@/contract'
-import { useMutation } from '@apollo/client';
 import { uploadNFT } from '@/config/NFTStorage'
-import camera from '@/public/camera.svg'
+import { useMutation } from '@apollo/client';
 import { AuthContext } from '@/context/AuthContext'
+import AddBlog from '../apollo/Blogs/addBlog.graphql'
+import camera from '@/public/camera.svg'
+
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
-//import { loader } from 'graphql.macro';
-//const PostBlog = loader('../apollo/Blogs/addBlog.graphql');
-//const GetBlogs = loader('../apollo/Department/getBlogs.gql');
 
 function Publish() {
     const [step,setStep] = useState(0)
@@ -20,30 +19,34 @@ function Publish() {
     const [image, setImage] = useState(camera)
     const [tags,setTags] = useState([])
 
-    const {address, provider} = useContext(AuthContext)
-    const [addBlog] = useMutation(PostBlog, { 
-        variables: { id:id },
+    const {
+        address,
+        provider
+    } = useContext(AuthContext)
+
+    const [addBlog] = useMutation(AddBlog, { 
+        variables: { 
+            title: "$title", 
+            author: "$author", 
+            address: "$address", 
+            isFree: "$isFree", 
+            pricing: "$pricing", 
+            tags:  "$tags"
+        },
+
         update(cache, { data: { addBlog } }) {
-            const { blogs } = cache.readQuery({ query: GetBlogs });
+            const { blogIndex } = cache.readQuery({ query: GetBlogs });
             cache.writeQuery({
                 query: GetBlogs,
-                data: { blogs: [...blogs, addBlog] },
+                data: { blogIndex: {edges:[...blogIndex.edges, addBlog]} },
             }); 
         },
     });
 
     const handlePublish = async () => {
-        //add meta data to nft storage
-        const cid = await uploadNFT({body,title,image})
 
-        //mint NFT
-        const contract = await NFTContract(address,provider)
-        const _title = title
-        const _image = cid
-        const NFT = await contract.createBlog(_title,_image)
+        
 
-        //mutate the graph and update the stored cache
-        addBlog()
     }
 
     return(

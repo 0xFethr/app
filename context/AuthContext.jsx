@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react"
 import { useWeb3Modal } from "@web3modal/react"
 import { goerli,useAccount,useSignMessage } from "wagmi"
+import { ethProvider } from "@/wagmi"
 import { uploadUserImage } from "@/config/NFTStorage"
 
 import { ComposeClient }from '@composedb/client'
@@ -8,18 +9,15 @@ import { DIDSession } from "did-session"
 import { EthereumWebAuth,getAccountId } from '@/util/authMethod'
 import { definition } from "@/schema/client"
 
-import { ethProvider } from "@/wagmi"
-
 import { useMutation,useQuery } from '@apollo/client'
 import  AddUser from '../apollo/Users/addUser.graphql'
 import  GetUser from '../apollo/Users/getUser.graphql'
 
 
 export const AuthContext = createContext()
-export const composeClient = new ComposeClient({ceramic:'http://localhost:7007',definition})
+export const composeClient = new ComposeClient({ceramic:'http://localhost:7007', definition})
 
 export function AuthProvider({children}) {
-
 
 	const loadSession = async (authMethod) => {
 		const sessionStr = localStorage.getItem('didsession')
@@ -36,8 +34,8 @@ export function AuthProvider({children}) {
 		return session
 	}
 
-	const addSession = async () => {
-		if(session?.isExpired||!session){		
+	const checkSession = async () => {
+		if(session?.isExpired||!session||!session?.isAuthenticated) {		
 			const accountId = await getAccountId(ethProvider,address)
 			const authMethod = await EthereumWebAuth.getAuthMethod(
 				ethProvider,
@@ -49,23 +47,18 @@ export function AuthProvider({children}) {
 			localStorage.setItem('didsession', session.serialize())
 			composeClient.setDID(session.did)
 			setSession(session)
-			setIsLoggedIn(session&&true)
 		}
 	}
 
-	const logInUser = async () => {
+	const authenticate = async () => {
 		setDefaultChain(goerli)
 		await open()
-		await addSession()
-
-		//get the user and if not present add user
+		await checkSession()
 	}
 
-	const logOutUser = async () => {
-		if (address) {
-			localStorage.removeItem("user")
-			localStorage.removeItem("didsession")
-		}
+	const logIn = async (id) => {
+		const res = getUser({id})
+		localStorage.setItem('user',userData)
 	}
 
 	const addUser = async (name,image) => {
@@ -73,7 +66,7 @@ export function AuthProvider({children}) {
 		const username = name 
 		const isPremium = false
 		const tokens = 0.0
-
+		
 		await addComposeUser({
 			variables: { 
 				username, 
@@ -83,49 +76,39 @@ export function AuthProvider({children}) {
 				tokens,
 			}
 		})
-
-		console.log(addUserData,addUserError)
-		if(!addUserError)
-			return addUserData
-		
-		return addUserError
 	}
 
 	useEffect(()=>{
-		addSession()
+		checkSession()
 		setSession(localStorage.getItem("didsession"))
+		setUser(localStorage.getItem("user"))
 		setProfileImage(localStorage.getItem("profileimage"))
-		getUser({id:session?.id})
 	},[])
 
 
 	const {open, setDefaultChain } = useWeb3Modal()
-	const {address,isConnected } = useAccount()
+	const {address } = useAccount()
 	const {signMessageAsync} = useSignMessage() 
 
-	const [addComposeUser, { data:addUserData, error:addUserError }] = useMutation(AddUser);
-	const {data:user,refetch:getUser,error:getUserError} = useQuery(GetUser)
+	const [addComposeUser, { data:addUserData }] = useMutation(AddUser);
+	const {refetch:getUser,error:getUserError, data:userData} = useQuery(GetUser)
 
 	const [session,setSession] = useState(null)
-	const [isLoggedIn,setIsLoggedIn] = useState(isConnected&&session)
-	const [profileImage,setProfileImage] = useState('')
-
-	console.log(session?.did)
-	console.log(session)
-	console.log(session?.id)
+	const [user,setUser] = useState(null)
+	const [profileImage,setProfileImage] = useState(null)
 
 	return (
 		<AuthContext.Provider value={{
 			address,
-			isConnected,
+			session,
 			user,
+
 			addUser,
-			isLoggedIn,
-			logInUser,
-			logOutUser,
+			authenticate,
+			logIn,
+
 			profileImage,
 			setProfileImage,
-			session,
 		}}>
 			{children}
 		</AuthContext.Provider>

@@ -1,4 +1,4 @@
-query getUser($id:String!) {
+query getBlog($id:String!) {
 	node(id:$id){
 	... on Blog {
 			blog {
@@ -17,4 +17,3 @@ query getUser($id:String!) {
 		}
 	}
 }
-# get blog by id, tag, name or realted to a user

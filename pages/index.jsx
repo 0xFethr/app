@@ -9,7 +9,6 @@ import axios from 'axios'
 
 
 export async function getStaticProps() {
-    console.log('res')
     const res = await axios.get('https://type.fit/api/quotes')
     const data =  res.data[Math.floor(Math.random() * 1642)]
     return{

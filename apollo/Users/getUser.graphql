@@ -1,14 +1,12 @@
-query getUser($id:String!) {
+query getUser($id:ID!) {
 	node(id:$id){
-	... on CeramicAccount {
-			user {
-				id
-				isPremium
-				imageURL
-				name
-				tokens
-				address
-			}
+	... on User {
+			id
+			isPremium
+			imageURL
+			name
+			tokens
+			address
 		}
 	}
 }

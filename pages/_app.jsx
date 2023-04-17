@@ -4,13 +4,25 @@ import { Web3Modal } from '@web3modal/react'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 
-import {AuthProvider} from '@/context/AuthContext'
+import {AuthProvider, composeClient} from '@/context/AuthContext'
 import { ApolloProvider } from '@apollo/client'
-import { Apolloclient } from '@/apollo/index'
+import { Initalize } from '@/apollo/index'
 
 import '@/styles/globals.css'
+import { useEffect, useState } from 'react'
 
 export default function App({ Component, pageProps }) {
+
+	const [Apolloclient,setApolloclient]  = useState(Initalize(composeClient))
+
+	useEffect(()=>{
+		const getApolloClient = async () =>{
+			const client = await Initalize(composeClient)
+			setApolloclient(client)
+		}
+		getApolloClient()
+	},[composeClient?.did])
+
 	return (
 		<WagmiConfig client={wagmiClient}>
 

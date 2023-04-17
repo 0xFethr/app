@@ -81,5 +81,3 @@ export const NFTContract = async (contractAddress='0x794517c363cff4d9b442112f7B0
 		getNFT
 	}
 }
-
-export { StreamContract, NFTContract};
