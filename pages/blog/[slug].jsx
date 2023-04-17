@@ -2,26 +2,38 @@ import parse from 'html-react-parser';
 import Profile from '@/components/Profile'
 import Image from 'next/image'
 import BlogCard from '@/components/BlogCard'
-import fakeBlogs from '@/data/fakeBlogs.json'
-import fakeProfiles from '@/data/fakeProfiles.json'
-import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client'
+import {useEffect, useState} from 'react'
+import  GetBlog from '../apollo/Blogs/getBlog.graphql'
 import Link from 'next/link'
 
 function Blog() {
     const router = useRouter()
-    const { slug } = router.query;
+	const { slug } = router.query;
 
-    const fakeBlog = fakeBlogs.find(blog => blog?.slug==slug)
-    const fakeProfile =  fakeProfiles.find(profile=>profile?.slug==fakeBlog?.authorID)
-    const fakeAuthorBlog = fakeBlogs.filter(blog => blog?.authorID==fakeProfile?.slug)
+	const [author,setAuthor] = useState(null)
+	const [blog,setBlog] = useState([])
+	const [blogs,setBlogs] = useState([])
+
+	const {
+		data,
+		loading
+	} = useQuery(GetBlog,{variables:{id:slug}})
+
+	
+	useEffect(() => {
+		setAuthor()
+		setBlogs()
+		setBlog(data?.node)
+	},[loading])
 
     return (
         <div className="flex w-screen justify-around mt-20 pt-20 ">
             <div className="flex flex-col w-[60%] px-20">
-                <h1 className="text-4xl w-full">{fakeBlog?.title}</h1>
+                <h1 className="text-4xl w-full">{blog?.title}</h1>
                 <div className="flex gap-5 my-2">
-                    {fakeBlog?.tags?.map((tag, index) => (
+                    {blog?.tags?.map((tag, index) => (
                         <Link 
                             key={index} 
                             href={`/search?keyword=${tag}`}>
@@ -32,13 +44,13 @@ function Blog() {
 
                 <Image 
                     className='aspect-video w-[100%] h-[50vh] object-fill rounded-3xl grayscale ' 
-                    src={fakeBlog?.imageURL} 
+                    src={blog?.imageURL} 
                     alt="Image" 
                     width={500} 
                     height={500} 
                 />
 
-                <p className='my-10'>{fakeBlog?.body}</p>
+                <p className='my-10'>{blog?.body}</p>
             </div>
 
             <div className='h-[90vh]'>
@@ -48,13 +60,13 @@ function Blog() {
             <div className="flex w-[30%] items-center">
                 <div className="flex flex-col items-center gap-5  z-10">
                     <Profile
-                        profilePic={fakeProfile?.imageURL}
-                        name={fakeProfile?.name}
-                        slug={fakeProfile?.slug}
+                        profilePic={author?.imageURL}
+                        name={author?.name}
+                        slug={author?.slug}
                         author
                     />
 
-                    {fakeAuthorBlog?.map((blog, index) => (
+                    {blogs?.map((blog, index) => (
                         <BlogCard
                             key={index}
                             className='shrink-10'

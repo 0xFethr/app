@@ -76,6 +76,11 @@ export function AuthProvider({children}) {
 				tokens,
 			}
 		})
+
+		return {
+			accountID:addUserData.node.id,
+			imageURL:imageURL
+		}
 	}
 
 	useEffect(()=>{

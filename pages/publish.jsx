@@ -1,5 +1,6 @@
 import ImageUploader from '@/components/ImageUploader'
 import Tags from '@/components/Tags'
+import Loader from '@/components/Loader'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useState, useContext } from 'react'
@@ -9,31 +10,25 @@ import { useMutation } from '@apollo/client';
 import { AuthContext } from '@/context/AuthContext'
 import AddBlog from '../apollo/Blogs/addBlog.graphql'
 import camera from '@/public/camera.svg'
+import { useRouter } from 'next/router'
 
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
 function Publish() {
+    const router = useRouter()
     const [step,setStep] = useState(0)
+
     const [title,setTitle] = useState('')
     const [body,setBody] = useState('')
     const [image, setImage] = useState(camera)
     const [tags,setTags] = useState([])
+    const [free,setFree] = useState(false)
+    const {address,user} = useContext(AuthContext)
 
-    const {
-        address,
-        provider
-    } = useContext(AuthContext)
+    const [isUploading,setIsUploading] = useState(false)
+    const {createBlog} = NFTContract
 
-    const [addBlog] = useMutation(AddBlog, { 
-        variables: { 
-            title: "$title", 
-            author: "$author", 
-            address: "$address", 
-            isFree: "$isFree", 
-            pricing: "$pricing", 
-            tags:  "$tags"
-        },
-
+    const [addBlog,{data,error}] = useMutation(AddBlog, {
         update(cache, { data: { addBlog } }) {
             const { blogIndex } = cache.readQuery({ query: GetBlogs });
             cache.writeQuery({
@@ -45,8 +40,29 @@ function Publish() {
 
     const handlePublish = async () => {
 
-        
+        setIsUploading(true)
+        const url = await uploadNFT(body,title,image)
 
+        const _title = title
+        const _image = url
+        const _owner = address
+        const {contractConfig} = await createBlog(_title, _image, _owner)
+        await contractConfig?.write?.()
+        console.log(contractConfig.data)
+
+        await addBlog({variables:{ 
+            title: title, 
+            author: user.id, 
+            address: address, 
+            isFree: free, 
+            tags:  tags
+        },})
+
+
+        if(data)
+            setIsUploading(false)
+            router.push(`/blog/${data.node.id}`)
+        console.log(error)
     }
 
     return(
@@ -118,7 +134,7 @@ function Publish() {
                 </div>
                 <button
                     className='absolute bottom-20 right-[12%] hover:opacity-50 z-10'
-                    onClick={(e)=>setStep(prev => ++prev)}>
+                    onClick={handlePublish}>
                     <Image 
                         src={'/Ok.svg'} 
                         width={70} 
@@ -126,6 +142,8 @@ function Publish() {
                         alt={'Feather'} 
                     />
                 </button>
+
+                {isUploading&&<Loader/>}
             </div>}
         </>
     )

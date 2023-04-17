@@ -29,7 +29,7 @@ function Tags({ tags, setTags }) {
                         onClick={() => {
                             setToggleSearch((prev) => !prev);
                             newTag?
-                            setTags(()=>[...tags,newTag]):
+                            setTags(()=>[...tags,{name:newTag}]):
                             setTags(()=>[...tags]);
                             return;
                         }}>
