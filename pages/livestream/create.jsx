@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { LiveStream } from '@/components/LiveStream'
 
 function Livestream() {
