@@ -4,6 +4,5 @@ type User @createModel(accountRelation: SINGLE, description: "User profile") {
   address: String! @string(minLength: 0, maxLength: 50)
   channelAddress: String! @string(minLength: 0, maxLength:500)
   imageURL: String @string(minLength: 0, maxLength: 500)
-  isPremium: Boolean
   tokens: Float
 }

@@ -10,7 +10,7 @@ function Login() {
 	const router = useRouter()
 	const [isUserLoading, setIsUserLoading] = useState(false)
 	const [id, setId] = useState('')
-	
+
 	const {
 		user,
 		logIn,
@@ -19,16 +19,18 @@ function Login() {
 
 	const handleLogIn = async() => {
 		setIsUserLoading(true)
-		console.log(isUserLoading)
-		await logIn({id})
-		setIsUserLoading(user&&false)
+
+		if(id){
+			const {userData,getUserError} = await logIn(id)
+			setIsUserLoading(user&&false)
+
+			if(userData)
+				router.push(`/profile/${id}`)
+		}
 	}
 
 	useEffect(() =>{
 		console.log(user)
-		if(user){
-			router.push('/')
-		}
 	},[user])
 
 

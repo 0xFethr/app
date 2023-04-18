@@ -9,11 +9,13 @@ function StreamBox({ author, isModalOpen, setIsModalOpen }) {
     const {address} = useContext(AuthContext)
 
     const handleSubscription = async () => {
-
+        //create stream
+        //add subscription to user account
     }
 
     const handleRejection = async () => {
-        
+        //stop stream
+        //remove subscription from user account
     }
 
     const [amount, setAmount] = useState(0);

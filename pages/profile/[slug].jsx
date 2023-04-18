@@ -2,17 +2,21 @@ import { useRouter } from 'next/router'
 import ProfileComponent from '@/components/Profile'
 import BlogCard from '@/components/BlogCard'
 import { useQuery } from '@apollo/client'
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import  GetUser from '@/apollo/Users/getUser.graphql'
+import { AuthContext } from '@/context/AuthContext'
 
 function Profile() {
 	
 	const router = useRouter()
 	const { slug } = router.query;
 	const [profile,setProfile] = useState(null)
+	const [id,setId] = useState('')
+
 	const [subscriptions,setSubscriptions] = useState([])
 	const [blogs,setBlogs] = useState([])
-
+	
+	const {user} = useContext(AuthContext)
 	const {
 		data,
 		loading
@@ -23,11 +27,12 @@ function Profile() {
 		setProfile(data?.node)
 		setSubscriptions()
 		setBlogs()
+		setId(localStorage.getItem('userID'))
 	},[loading])
 
 	return (
 		<div className="flex flex-col items-center pt-20 mt-20 w-screen overflow-x-hidden ">
-			{user?
+			{id==slug?
 			<ProfileComponent
 				profilePic={profile?.imageURL}
 				name={profile?.name}

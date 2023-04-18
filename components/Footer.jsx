@@ -22,7 +22,7 @@ const Footer = () => {
     }, [])
 
     return (
-        <footer className="relative -mt-[20rem] w-screen h-screen overflow-hidden flex flex-col justify-end">
+        <footer className="relative -mt-[20rem] w-screen h-screen overflow-hidden flex flex-col justify-end z-0">
             <div className="absolute z-0 top-0 w-full">
                 <Image  
                     className='w-full h-[20%]'

@@ -9,12 +9,14 @@ function Navbar() {
 	const { scrollYProgress } = useScroll()
 	const router = useRouter()
 	const scaleX = useSpring(scrollYProgress)
-
+	const [id,setId] = useState('')
 	const {profileImage,session,address} = useContext(AuthContext)
 	const [route,setRoute] = useState(router.asPath)
 
 	useEffect(() => {
 		setRoute(router.asPath)
+		const uid = localStorage.getItem('user')
+		setId
 	  }, [router.asPath]);
 
 	return (
@@ -55,14 +57,13 @@ function Navbar() {
 
 				<div className=" flex gap-10">
 					<Link className="hover:text-[white] hover:font-[400]" href={'/publish'}>publish</Link>
-					<Link className="hover:text-[white] hover:font-[400]" href={'/pricing'}>pricing</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'/warden'}>warden</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'/search'}>search</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'https://fethfaucet.netlify.app/'}>faucet</Link>
 				</div>
 
 
-				<Link href={!session?.isExpired&&address?`/profile/${'asdad'}`:'/join'} className=" flex flex-col relative">
+				<Link href={(!session?.isExpired&&id&&address)?`/profile/${id}`:'/join'} className=" flex flex-col relative">
 					<div className=''>
 						{profileImage?
 						<Image 

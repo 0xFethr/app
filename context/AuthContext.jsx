@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import { useWeb3Modal } from "@web3modal/react"
-import { goerli,useAccount,useSignMessage } from "wagmi"
+import { goerli,useAccount,useSignMessage, useSigner } from "wagmi"
 import { ethProvider } from "@/wagmi"
 import { uploadUserImage, getNFTData} from "@/config/NFTStorage"
 
@@ -43,10 +43,6 @@ export function AuthProvider({children}) {
 				signMessageAsync
 			)
 			const session = await loadSession(authMethod)
-			const id = localStorage.getItem('user')
-			getUser({id})
-			localStorage.setItem('userID',id)
-			localStorage.setItem('user',JSON.stringify(userData));
 			localStorage.setItem('didsession', session.serialize())
 			composeClient.setDID(session.did)
 			setSession(session)
@@ -61,9 +57,10 @@ export function AuthProvider({children}) {
 	}
 
 	const logIn = async (id) => {
-		getUser({id})
+		getUser({id:id})
 		localStorage.setItem('userID',id)
-		localStorage.setItem('user',userData)
+		localStorage.setItem('user',JSON.stringify(userData))
+		return {userData,getUserError}
 	}
 
 	const addUser = async (name,image) => {
@@ -94,7 +91,7 @@ export function AuthProvider({children}) {
 	const {open, setDefaultChain } = useWeb3Modal()
 	const {address} = useAccount()
 	const {signMessageAsync} = useSignMessage() 
-
+	const {data:signer} = useSigner()
 
 	const [session,setSession] = useState(null)
 	const [user,setUser] = useState(null)
@@ -119,6 +116,7 @@ export function AuthProvider({children}) {
 			address,
 			session,
 			user,
+			signer,
 
 			addUser,
 			authenticate,
