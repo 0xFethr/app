@@ -11,6 +11,8 @@
   "dependencies": {
     "@apollo/client": "^3.7.12",
     "@composedb/client": "^0.4.3",
+    "@livepeer/design-system": "^1.0.17",
+    "@livepeer/react": "^2.4.2",
     "@web3modal/ethereum": "^2.3.0",
     "@web3modal/react": "^2.3.0",
     "autoprefixer": "10.4.14",
@@ -28,6 +30,7 @@
     "prettier": "^2.8.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-loader-spinner": "^5.3.4",
     "react-modal": "^3.16.1",
     "react-quill": "^2.0.0",

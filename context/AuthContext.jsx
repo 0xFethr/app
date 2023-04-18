@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react"
 import { useWeb3Modal } from "@web3modal/react"
 import { goerli,useAccount,useSignMessage } from "wagmi"
 import { ethProvider } from "@/wagmi"
-import { uploadUserImage } from "@/config/NFTStorage"
+import { uploadUserImage, getNFTData} from "@/config/NFTStorage"
 
 import { ComposeClient }from '@composedb/client'
 import { DIDSession } from "did-session"
@@ -43,7 +43,10 @@ export function AuthProvider({children}) {
 				signMessageAsync
 			)
 			const session = await loadSession(authMethod)
-			localStorage.setItem('user',address)
+			const id = localStorage.getItem('user')
+			getUser({id})
+			localStorage.setItem('userID',id)
+			localStorage.setItem('user',JSON.stringify(userData));
 			localStorage.setItem('didsession', session.serialize())
 			composeClient.setDID(session.did)
 			setSession(session)
@@ -53,20 +56,25 @@ export function AuthProvider({children}) {
 	const authenticate = async () => {
 		setDefaultChain(goerli)
 		await open()
-		await checkSession()
+		if(address)
+			await checkSession()
 	}
 
 	const logIn = async (id) => {
-		const res = getUser({id})
+		getUser({id})
+		localStorage.setItem('userID',id)
 		localStorage.setItem('user',userData)
 	}
 
 	const addUser = async (name,image) => {
-		const imageURL = await uploadUserImage(image,name)
+		const metaDataURL = await uploadUserImage(image,name)
 		const username = name 
 		const isPremium = false
 		const tokens = 0.0
-		
+
+		let cid = metaDataURL?.toString().match(/ipfs:\/\/(.+?)\//)[1];
+		const imageURL = `https://${cid}.ipfs.dweb.link/image/${username}.png`
+
 		await addComposeUser({
 			variables: { 
 				username, 
@@ -77,30 +85,34 @@ export function AuthProvider({children}) {
 			}
 		})
 
-		return {
-			accountID:addUserData.node.id,
-			imageURL:imageURL
-		}
+		return addUserData
 	}
-
-	useEffect(()=>{
-		checkSession()
-		setSession(localStorage.getItem("didsession"))
-		setUser(localStorage.getItem("user"))
-		setProfileImage(localStorage.getItem("profileimage"))
-	},[])
-
-
+	
+	const [addComposeUser, { data:addUserData, loading:addUserLoading }] = useMutation(AddUser);
+	const {refetch:getUser,error:getUserError, data:userData} = useQuery(GetUser)
+	
 	const {open, setDefaultChain } = useWeb3Modal()
-	const {address } = useAccount()
+	const {address} = useAccount()
 	const {signMessageAsync} = useSignMessage() 
 
-	const [addComposeUser, { data:addUserData }] = useMutation(AddUser);
-	const {refetch:getUser,error:getUserError, data:userData} = useQuery(GetUser)
 
 	const [session,setSession] = useState(null)
 	const [user,setUser] = useState(null)
 	const [profileImage,setProfileImage] = useState(null)
+
+	useEffect(()=>{
+		if(address)
+			checkSession()
+		setSession(localStorage.getItem("didsession"))
+		setUser(localStorage.getItem("user"))
+		setProfileImage(localStorage.getItem("profileimage"))
+	},[session?.isExpired])
+
+	useEffect(()=>{
+		if(address)
+			setUser(addUserData?.createUser.document.id)
+	},[addUserLoading])
+
 
 	return (
 		<AuthContext.Provider value={{

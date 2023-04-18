@@ -9,16 +9,19 @@ function Login() {
 
 	const router = useRouter()
 	const {
+		session,
 		address,
 		authenticate,
 	} = useContext(AuthContext)
 
 	useEffect(() =>{
+		if(address&&!session.isExpired){
+			router.push('/login/getUser')
+		}
 		if(address){
 			router.push('/login/authenticate')
 		}
-		router.push('/login')
-	},[address])
+	},[address,session?.isExpired])
 
 
 	return (

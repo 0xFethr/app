@@ -7,6 +7,7 @@ import { AuthContext } from '@/context/AuthContext'
 function SignUp() {
 
 	const router = useRouter()
+	
 	const {
 		address,
 		authenticate,

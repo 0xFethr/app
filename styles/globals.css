@@ -1142,3 +1142,14 @@ html {
     border: none;
   }
   
+
+  .dropper {
+    width: 100%;
+    background: white;
+    cursor: pointer;
+    padding: var(--space-1);
+    margin-bottom: var(--space-0);
+    height: auto;
+    border: 1px solid var(--colors-green7);
+    border-radius: var(--radii-1);
+}

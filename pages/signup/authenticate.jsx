@@ -13,10 +13,9 @@ function SignUp() {
 
 	useEffect(() =>{
 		if(!session?.isExpired){
-			router.push('/signup/getUser')
+			router.push('/signup/addUser')
 		}
 	},[session])
-
 
 	return (
 		<>

@@ -1,10 +1,11 @@
-mutation addBlog( $title:String!, $address:String!, $userDID:String!, $isFree:Boolean, $pricing:Float, $author:DID!, $tags:[Tag]) {
+mutation addBlog( $title:String!, $address:String!, $isFree:Boolean, $pricing:Float,$contentURL:String! ,$author:DID!, $tags:[BlogTagInput]) {
 	createBlog(
 		input: {
 			content: {
 				title: $title, 
 				author: $author, 
 				address: $address, 
+				contentURL: $contentURL,
 				isFree: $isFree, 
 				pricing: $pricing, 
 				tags:  $tags

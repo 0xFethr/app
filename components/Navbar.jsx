@@ -10,7 +10,7 @@ function Navbar() {
 	const router = useRouter()
 	const scaleX = useSpring(scrollYProgress)
 
-	const {profileImage,session} = useContext(AuthContext)
+	const {profileImage,session,address} = useContext(AuthContext)
 	const [route,setRoute] = useState(router.asPath)
 
 	useEffect(() => {
@@ -60,8 +60,9 @@ function Navbar() {
 					<Link className="hover:text-[white] hover:font-[400]" href={'/search'}>search</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'https://fethfaucet.netlify.app/'}>faucet</Link>
 				</div>
-				
-				<Link href={'/login'} className=" flex flex-col relative">
+
+
+				<Link href={!session?.isExpired&&address?`/profile/${'asdad'}`:'/join'} className=" flex flex-col relative">
 					<div className=''>
 						{profileImage?
 						<Image 
@@ -80,26 +81,6 @@ function Navbar() {
 						/>}
 					</div>
 				</Link>
-{/* 
-				<Link href={session?`/profile/${'asdad'}`:'/login'} className=" flex flex-col relative">
-					<div className=''>
-						{profileImage?
-						<Image 
-							className='rounded-full'
-							src={profileImage} 
-							width={50} 
-							height={100} 
-							alt={'Feather'} 
-						/>:
-						<Image 
-							className='rounded-full'
-							src={'/user.png'} 
-							width={50} 
-							height={100} 
-							alt={'Feather'} 
-						/>}
-					</div>
-				</Link> */}
 
 				{route=='/Login'&&
 				<div className="absolute z-0 -right-10 animate splat delay-1">

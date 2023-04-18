@@ -1,6 +1,6 @@
 type Warden
   @loadModel(
-    id: "kjzl6hvfrbw6c67vsd24pbma4zrfx4pshvjtfbc909j55ueq3rjktl2b07r70me"
+    id: "kjzl6hvfrbw6c8ehh3meqcwslutp3mm8wg04a82smnbqwao3tp329icud17dpq0"
   ) {
   id: ID!
 }

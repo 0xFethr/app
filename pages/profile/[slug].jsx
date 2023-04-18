@@ -3,7 +3,7 @@ import ProfileComponent from '@/components/Profile'
 import BlogCard from '@/components/BlogCard'
 import { useQuery } from '@apollo/client'
 import {useEffect, useState} from 'react'
-import  GetUser from '../apollo/Users/getUser.graphql'
+import  GetUser from '@/apollo/Users/getUser.graphql'
 
 function Profile() {
 	

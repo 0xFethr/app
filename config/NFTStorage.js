@@ -20,12 +20,20 @@ export async function uploadUserImage(image,username){
 		description: 'user profile image',
 		image: imageFile
 	});
+	
+	console.log(metadata.url)
 	return metadata.url
 }
 
 export async function getNFTData(imageURL,username){
+	console.log(imageURL?.toString())
 	let cid = imageURL?.toString().match(/ipfs:\/\/(.+?)\//)[1];
-	console.log(`https://${cid}.ipfs.nftstorage.link/image/${username}.png`)
-	const res = await axios.get(`https://${cid}.ipfs.nftstorage.link/image/${username}.png`)
+	const res = await axios.get(`https://${cid}.ipfs.dweb.link/image/${username}.png`)
+	return res.data
+}
+
+export async function getBlogData(URL){
+	let cid = URL?.toString().match(/ipfs:\/\/(.+?)\//)[1];
+	const res = await axios.get(`https://${cid}.ipfs.dweb.link`)
 	return res.data
 }

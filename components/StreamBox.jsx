@@ -2,23 +2,18 @@ import Modal from 'react-modal';
 import Image from 'next/image';
 import { StreamContract } from '@/contract';
 import { AuthContext } from '@/context/AuthContext';
-import React, { useState,useContext } from 'react'
+import { useState,useContext } from 'react'
 
 function StreamBox({ author, isModalOpen, setIsModalOpen }) {
 
-    const {provider,address} = useContext(AuthContext)
+    const {address} = useContext(AuthContext)
 
     const handleSubscription = async () => {
-        const contract = await StreamContract(address,provider)
-        const createFlow = await contract.createFlowToAddress(reciever,token,flowrate)
-        return createFlow
+
     }
 
     const handleRejection = async () => {
-        //cry
-        const contract = await StreamContract(address,provider)
-        const removeFlow = await contract.deleteFlowFromContract(reciever,token)
-        return removeFlow
+        
     }
 
     const [amount, setAmount] = useState(0);

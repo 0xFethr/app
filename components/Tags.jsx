@@ -16,9 +16,9 @@ function Tags({ tags, setTags }) {
             {tags.map((tag, index) => (
                 <Link 
                     key={index} 
-                    href={`/search?keyword=${tag}`}
+                    href={`/search?keyword=${tag.name}`}
                     className="p-[6px] bg-[#ce65ff7a] rounded-xl min-w-[5rem] text-center">
-                    <h2 className="italic text-[100]">{tag}</h2>
+                    <h2 className="italic text-[100]">{tag.name}</h2>
                 </Link>
             ))}
 

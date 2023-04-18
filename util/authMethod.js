@@ -20,6 +20,7 @@ export var EthereumWebAuth;
 async function createCACAO(opts, ethProvider, account, signMessageAsync) {
     const now = new Date();
     const oneWeekLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+    console.log(opts.domain)
     const siweMessage = new SiweMessage({
         domain: opts.domain,
         address: account.address,
@@ -28,7 +29,7 @@ async function createCACAO(opts, ethProvider, account, signMessageAsync) {
         version: 1,
         nonce: opts.nonce ?? randomString(10),
         issuedAt: now.toISOString(),
-        expirationTime: opts.expirationTime ?? oneWeekLater.toISOString(),
+        expirationTime: oneWeekLater.toISOString(),
         chainId: account.chainId.reference,
         resources: opts.resources
     });
