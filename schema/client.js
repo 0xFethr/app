@@ -2,23 +2,23 @@
 export const definition = {
   models: {
     Blog: {
-      id: "kjzl6hvfrbw6c7jtoz52yql11012mkfzo9lizs3dzjwnpgd5i7ji4aigryjrtl9",
+      id: "kjzl6hvfrbw6caow4s2eh889ae6eyrfos9ebyk9570txwg9lwl34226z2fg9rpb",
       accountRelation: { type: "list" },
     },
     Fleet: {
-      id: "kjzl6hvfrbw6c9k8njy70hinaak059fcj1h0nzx3rgu8zmisx0x4g7uo489p1j5",
+      id: "kjzl6hvfrbw6c8h8r4iakt2jc49kn8m85durbtziy9d206um2ylnu3pv71mxvip",
       accountRelation: { type: "list" },
     },
     User: {
-      id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h",
+      id: "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx",
       accountRelation: { type: "single" },
     },
     Subscription: {
-      id: "kjzl6hvfrbw6c6dvz3svm4ooksdq8omjcxh8kfae8rkdxflwafwvcr17pfjr7ij",
+      id: "kjzl6hvfrbw6cb5ig1jae2ae451pslcb38n46ggkqz1fhqjd4cufk9vvx6bigvy",
       accountRelation: { type: "list" },
     },
     Warden: {
-      id: "kjzl6hvfrbw6c8ehh3meqcwslutp3mm8wg04a82smnbqwao3tp329icud17dpq0",
+      id: "kjzl6hvfrbw6c5e2c7q45lvbfsl26cyszke93pnu111gxpcou6b4bnjbge5quvq",
       accountRelation: { type: "list" },
     },
   },
@@ -36,11 +36,10 @@ export const definition = {
         },
       },
       title: { type: "string", required: true },
-      author: { type: "did", required: true },
       isFree: { type: "boolean", required: false },
       address: { type: "string", required: true },
-      pricing: { type: "float", required: false },
       contentURL: { type: "string", required: true },
+      author: { type: "view", viewType: "documentAccount" },
     },
     FleetTag: { name: { type: "string", required: true } },
     Fleet: {
@@ -55,22 +54,33 @@ export const definition = {
         },
       },
       title: { type: "string", required: true },
-      author: { type: "did", required: true },
       contentURL: { type: "string", required: true },
+      author: { type: "view", viewType: "documentAccount" },
     },
     User: {
       name: { type: "string", required: true },
       tokens: { type: "float", required: false },
       address: { type: "string", required: true },
       imageURL: { type: "string", required: false },
-      isPremium: { type: "boolean", required: false },
+      channelAddress: { type: "string", required: true },
+      account: { type: "view", viewType: "documentAccount" },
       subscriptions: {
         type: "view",
         viewType: "relation",
         relation: {
           source: "queryConnection",
           model:
-            "kjzl6hvfrbw6c8ehh3meqcwslutp3mm8wg04a82smnbqwao3tp329icud17dpq0",
+            "kjzl6hvfrbw6cb5ig1jae2ae451pslcb38n46ggkqz1fhqjd4cufk9vvx6bigvy",
+          property: "subscriptionID",
+        },
+      },
+      wardens: {
+        type: "view",
+        viewType: "relation",
+        relation: {
+          source: "queryConnection",
+          model:
+            "kjzl6hvfrbw6c5e2c7q45lvbfsl26cyszke93pnu111gxpcou6b4bnjbge5quvq",
           property: "wardenID",
         },
       },
@@ -84,7 +94,7 @@ export const definition = {
         relation: {
           source: "document",
           model:
-            "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h",
+            "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx",
           property: "userID",
         },
       },
@@ -94,7 +104,7 @@ export const definition = {
         relation: {
           source: "document",
           model:
-            "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h",
+            "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx",
           property: "subscriptionID",
         },
       },
@@ -112,7 +122,7 @@ export const definition = {
           required: false,
         },
       },
-      author: { type: "did", required: true },
+      author: { type: "view", viewType: "documentAccount" },
     },
   },
   enums: {},

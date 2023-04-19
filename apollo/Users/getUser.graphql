@@ -2,11 +2,33 @@ query getUser($id:ID!) {
 	node(id:$id){
 	... on User {
 			id
-			isPremium
-			imageURL
 			name
-			tokens
 			address
+			channelAddress
+			imageURL
+			tokens
+			account{
+				blogList(first:100){
+					edges{
+						node{
+							id
+							contentURL
+							title
+						}
+					}
+				}
+				subscriptionList(first: 100) {
+					edges {
+						node {
+							subscription {
+								imageURL
+								id
+								name
+							}
+						}
+					}
+       			}
+			}
 		}
 	}
 }

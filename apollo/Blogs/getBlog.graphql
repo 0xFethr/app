@@ -2,13 +2,27 @@ query getBlog($id:ID!) {
 	node(id:$id){
 	... on Blog {
 			id
-			author {
-				id
+			author{
+				user{
+					account{
+						blogList(first:100){
+							edges{
+								node{
+									id
+									contentURL
+									title
+								}
+							}
+						}
+					}
+					id
+					name
+					imageURL	
+				}
 			}
 			address
-			contentURL
 			isFree
-			pricing
+			contentURL
 			title
 			tags{
 				name

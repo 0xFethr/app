@@ -9,20 +9,8 @@ function Login() {
 
 	const router = useRouter()
 	const {
-		session,
-		address,
 		authenticate,
 	} = useContext(AuthContext)
-
-	useEffect(() =>{
-		if(address&&!session.isExpired){
-			router.push('/login/getUser')
-		}
-		if(address){
-			router.push('/login/authenticate')
-		}
-	},[address,session?.isExpired])
-
 
 	return (
 		<>
@@ -39,7 +27,7 @@ function Login() {
 				</p>
 				<button 
 					className="bg-accent p-2 rounded-xl w-[10%] relative z-10" 
-					onClick={authenticate}>
+					onClick={()=>{authenticate();router.push('/login/authenticate')}}>
 						Connect
 				</button>
 				<div className="absolute z-0 top-[10%] animate splat blur-3xl">

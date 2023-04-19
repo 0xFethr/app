@@ -7,15 +7,8 @@ function SignUp() {
 
 	const router = useRouter()
 	const {
-		session,
 		authenticate,
 	} = useContext(AuthContext)
-
-	useEffect(() =>{
-		if(!session?.isExpired){
-			router.push('/signup/addUser')
-		}
-	},[session])
 
 	return (
 		<>
@@ -32,7 +25,7 @@ function SignUp() {
 				</p>
 				<button 
 					className="bg-accent p-2 rounded-xl w-[10%] relative z-10" 
-					onClick={authenticate}>
+					onClick={()=>{authenticate();router.push('/signup/addUser')}}>
 						Authenticate
 				</button>
 				<div className="absolute z-0 top-[10%] animate splat blur-3xl">

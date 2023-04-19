@@ -33,6 +33,7 @@ export function AuthProvider({children}) {
 		}
 		return session
 	}
+	
 
 	const checkSession = async () => {
 		if(session?.isExpired||!session||!session?.isAuthenticated) {		
@@ -74,11 +75,11 @@ export function AuthProvider({children}) {
 
 		await addComposeUser({
 			variables: { 
-				username, 
-				address,
-				imageURL,
-				isPremium, 
-				tokens,
+				username: username, 
+				address: address, 
+				imageURL: imageURL, 
+				tokens: 0,
+				channelAddress:''
 			}
 		})
 
@@ -100,10 +101,11 @@ export function AuthProvider({children}) {
 	useEffect(()=>{
 		if(address)
 			checkSession()
+		// console.log(session?.did?._id, "poop")
 		setSession(localStorage.getItem("didsession"))
 		setUser(localStorage.getItem("user"))
 		setProfileImage(localStorage.getItem("profileimage"))
-	},[session?.isExpired])
+	},[session?.isExpired,address])
 
 	useEffect(()=>{
 		if(address)

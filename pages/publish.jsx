@@ -12,12 +12,11 @@ import { useMutation } from '@apollo/client';
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/router'
 import AddBlog from '../apollo/Blogs/addBlog.graphql'
-
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
 function Publish() {
 	const router = useRouter()
-	const {address,session} = useContext(AuthContext)
+	const {address,session,user} = useContext(AuthContext)
 	const [step,setStep] = useState(0)
 
 	const [title,setTitle] = useState('')
@@ -25,18 +24,9 @@ function Publish() {
 	const [body,setBody] = useState('')
 	const [image, setImage] = useState(camera)
 	const [tags,setTags] = useState([])
-	const [free,setFree] = useState(false)
+	const [free,setFree] = useState(true)
 	const [isUploading,setIsUploading] = useState(false)
-	
-	const [addBlog,{data,error}] = useMutation(AddBlog, {
-	    update(cache, { data: { addBlog } }) {
-	        const { blogIndex } = cache.readQuery({ query: GetBlogs });
-	        cache.writeQuery({
-	            query: GetBlogs,
-	            data: { blogIndex: {edges:[...blogIndex.edges, addBlog]} },
-	        }); 
-	    },
-	});
+	const [addBlog,{data,error}] = useMutation(AddBlog);
 
 	const handlePublish = async () => {
 
@@ -51,24 +41,21 @@ function Publish() {
 		}
 		await createNFT?.()	
 
-		if(!session.isExpired&&session?.did?._parentId){
+		if(!session.isExpired){
 			await addBlog({variables:{ 
 				title: title, 
-				author: session?.did?._parentId, 
 				contentURL:contentURL,
 				address: createNFTData?.hash, 
 				isFree: free, 
 				tags:  tags
 			},})
 		}
-		else{
-			alert("session expired")
-		}
-	
-		if(data)
-		    setIsUploading(false)
-		    // router.push(`/blog/${data?.node?.id}`)
 
+		setIsUploading(false)
+		console.log(data)
+
+		if(data)
+			router.push(`/blog/${data?.createBlog?.document?.id}`)
 	}
 
 	const _title = title
@@ -90,9 +77,11 @@ function Publish() {
 
 
 	useEffect(()=>{
+		if(!address||session?.isExpired)
+			router.push('/join')
 		if(createNFTData)
 			console.log("Minted", createNFTData)
-	},[isSuccess])
+	},[isSuccess,address,session?.isExpired])
 
 
 	return(
@@ -152,6 +141,20 @@ function Publish() {
 						tags={tags}
 						setTags={setTags}
 					/>
+					<div>
+						<input 
+							type="checkbox" 
+							id="premium"
+							className='mx-2 bg-base opacity-75'
+							name="premium"
+							onChange={()=>setFree(p=>!p)}
+						/>
+						<label 
+							for="premium"
+							className='italic opacity-70 underline'
+						>Premium
+						</label>
+					</div>
 					
 				{isUploading&&<Loader/>}
 

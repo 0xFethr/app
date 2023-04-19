@@ -4,8 +4,7 @@ import { Web3Modal } from '@web3modal/react'
 
 import {LivepeerConfig} from '@livepeer/react';
 import { livepeerClient } from '@/config/LivePeer'
-;
-import Footer from '@/components/Footer'
+
 import Navbar from '@/components/Navbar'
 
 import {AuthProvider, composeClient} from '@/context/AuthContext'
@@ -31,9 +30,8 @@ export default function App({ Component, pageProps }) {
 			<ApolloProvider client={Apolloclient}>
 				<AuthProvider>
 					<LivepeerConfig client={livepeerClient}>
-						<Navbar />
+							<Navbar />
 							<Component {...pageProps} className='scale-[0.80]'/>
-						<Footer />
 					</LivepeerConfig>
 				</AuthProvider>
 			</ApolloProvider>

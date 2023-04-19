@@ -1,23 +1,23 @@
-mutation addUser($username:String!, $address:String!, $imageURL:String, $isPremium:Boolean, $tokens:Float) {
+mutation addUser($username:String!, $address:String!, $imageURL:String, $tokens:Float, $channelAddress:String!) {
 	createUser(
 		input: {
 			content: {
 				name: $username, 
 				address: $address, 
 				imageURL: $imageURL, 
-				isPremium: $isPremium, 
 				tokens: $tokens
+				channelAddress:$channelAddress
 			}
 		}
 	)
 
 	{
 		document {
-			address
 			id
-			imageURL
-			isPremium
 			name
+			address
+			channelAddress
+			imageURL
 			tokens
 		}
 	}

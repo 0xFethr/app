@@ -1,13 +1,13 @@
 type Subscription
   @loadModel(
-    id: "kjzl6hvfrbw6c6dvz3svm4ooksdq8omjcxh8kfae8rkdxflwafwvcr17pfjr7ij"
+    id: "kjzl6hvfrbw6cb5ig1jae2ae451pslcb38n46ggkqz1fhqjd4cufk9vvx6bigvy"
   ) {
   id: ID!
 }
 
 type User
   @loadModel(
-    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+    id: "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx"
   ) {
   subscriptions: [Subscription]
     @relationFrom(model: "Subscription", property: "subscriptionID")

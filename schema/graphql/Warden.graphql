@@ -4,7 +4,7 @@ type Warden @createModel(accountRelation: LIST, description: "AI wardens") {
   tags: [Tag] @list(minLength: 0, maxLength: 50)
 
   # relationships
-  author: DID! @accountReference
+  author: DID! @documentAccount
 }
 
 type Tag {

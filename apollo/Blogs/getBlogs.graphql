@@ -3,13 +3,12 @@ query getBlogs {
 		edges {
 			node {
 				id
-				author {
-					id
+				author{
+					user{
+						name
+					}
 				}
-				address
 				contentURL
-				isFree
-				pricing
 				title
 				tags{
 					name

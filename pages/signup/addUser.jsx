@@ -26,7 +26,7 @@ function SignUp() {
 		if(user){
 			setIsUploading(false)
 			setProfileImage(image)
-            setId(user)
+            setId(user?.id)
 			localStorage.setItem('profileimage',image)
 		}
 	}

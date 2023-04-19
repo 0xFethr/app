@@ -15,8 +15,8 @@ function Navbar() {
 
 	useEffect(() => {
 		setRoute(router.asPath)
-		const uid = localStorage.getItem('user')
-		setId
+		const uid = localStorage.getItem('userID')
+		setId(uid)
 	  }, [router.asPath]);
 
 	return (
@@ -57,8 +57,9 @@ function Navbar() {
 
 				<div className=" flex gap-10">
 					<Link className="hover:text-[white] hover:font-[400]" href={'/publish'}>publish</Link>
-					<Link className="hover:text-[white] hover:font-[400]" href={'/warden'}>warden</Link>
-					<Link className="hover:text-[white] hover:font-[400]" href={'/search'}>search</Link>
+					<Link className="hover:text-[white] hover:font-[400]" href={'/warden'}>my warden</Link>
+					<Link className="hover:text-[white] hover:font-[400]" href={'/search'}>explore</Link>
+					<Link className="hover:text-[white] hover:font-[400]" href={'/fleets'}>fleets</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'https://fethfaucet.netlify.app/'}>faucet</Link>
 				</div>
 

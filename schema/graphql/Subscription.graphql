@@ -1,6 +1,6 @@
 type User
   @loadModel(
-    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+    id: "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx"
   ) {
   id: ID!
 }

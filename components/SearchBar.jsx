@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 function SearchBar({ searchParam, setSearchParam }) {
 
@@ -20,10 +21,12 @@ function SearchBar({ searchParam, setSearchParam }) {
                 className="bg-[#cccccc2a] p-5 rounded-2xl w-full glassNoBorder border-none text-[#cccccc7a] placeholder:text-[#cccccc7a] px-20"
                 value={searchParam}
                 onChange={(e) => setSearchParam(e.target.value)}
-                placeholder="Search Blogs"
+                placeholder="Search"
                 type="search"
             />
-            <div className="absolute left-2 z-[10] top-[20%] cursor-pointer">
+            <Link
+                href={`/search?keyword=${searchParam?.toLowerCase()}`} 
+                className="absolute left-2 z-[10] top-[20%] cursor-pointer">
                 <Image
                     className=''
                     src={'/search.svg'}
@@ -31,8 +34,7 @@ function SearchBar({ searchParam, setSearchParam }) {
                     height={40}
                     alt={'Feather'}
                 />
-            </div>
-            {/* <div className="" ></div> */}
+            </Link>
         </div>
     )
 }

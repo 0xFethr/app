@@ -1,13 +1,11 @@
-mutation addBlog( $title:String!, $address:String!, $isFree:Boolean, $pricing:Float,$contentURL:String! ,$author:DID!, $tags:[BlogTagInput]) {
+mutation addBlog( $title:String!, $address:String!, $isFree:Boolean, $contentURL:String!, $tags:[BlogTagInput]) {
 	createBlog(
 		input: {
 			content: {
 				title: $title, 
-				author: $author, 
 				address: $address, 
 				contentURL: $contentURL,
 				isFree: $isFree, 
-				pricing: $pricing, 
 				tags:  $tags
 			}
 		}
@@ -15,12 +13,9 @@ mutation addBlog( $title:String!, $address:String!, $isFree:Boolean, $pricing:Fl
 	{
 		document {
 			id
-			author {
-				id
-			}
 			address
 			isFree
-			pricing
+			contentURL
 			title
 			tags{
 				name

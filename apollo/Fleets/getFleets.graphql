@@ -3,9 +3,10 @@ query getUsers {
 		edges {
 			node {
 				title
-				address
-				tags
-				author
+				contentURL
+				tags{
+					name
+				}
 			}
 		}
 	}

@@ -11,6 +11,7 @@ export const LiveStream = ({isModalOpen,setIsModalOpen}) => {
 	data: stream,
 	status,
   } = useCreateStream(streamName ? { name: streamName } : null);
+  
   console.log(stream?.playbackId)
   const isLoading = useMemo(() => status === 'loading', [status]);
   const customStyles = {

@@ -1,13 +1,13 @@
 type Warden
   @loadModel(
-    id: "kjzl6hvfrbw6c8ehh3meqcwslutp3mm8wg04a82smnbqwao3tp329icud17dpq0"
+    id: "kjzl6hvfrbw6c5e2c7q45lvbfsl26cyszke93pnu111gxpcou6b4bnjbge5quvq"
   ) {
   id: ID!
 }
 
 type User
   @loadModel(
-    id: "kjzl6hvfrbw6c5og04fltopb755bfc7n8e4t9itxr94x2z17qrn1i3mlznqt30h"
+    id: "kjzl6hvfrbw6c5ni4cmk81rs0a1msmcdaq5p3p8zrw0nqvzki98zmnd24x8lekx"
   ) {
-  subscriptions: [Warden] @relationFrom(model: "Warden", property: "wardenID")
+  wardens: [Warden] @relationFrom(model: "Warden", property: "wardenID")
 }

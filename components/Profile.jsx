@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import StreamBox from './StreamBox'
 import Image from 'next/image'
 import Link from 'next/link'
-import { getNFTData } from '@/config/NFTStorage'
+import { getProfileImage } from '@/config/NFTStorage'
 import { optIn, optOut } from '@/config/Push'
 import { useConnect } from 'wagmi'
 import { AuthContext } from '@/context/AuthContext'
@@ -16,8 +16,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 
 	useMemo(()=>{
 		const getImage = async() =>{
-			const data = await getNFTData(profilePic,name)
-			console.log(profilePic)
+			const data = await getProfileImage(profilePic,name)
 			setImage(data)
 		}
 		getImage()
@@ -45,7 +44,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 						href={`/profile/${slug}`}
 						className="relative z-10 flex felx-col justify-center h-auto w-auto ">
 						<Image 
-							className='rounded-full border-2 border-white'
+							className='rounded-full border-2 border-[white]'
 							src={image?image:''} 
 							width={150} 
 							height={150} 
@@ -110,7 +109,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 					<LiveStream setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}/>
 					<div className="relative">
 						<Image 
-							className='rounded-full border-2 border-white'
+							className='rounded-full border-2 border-[white]'
 							src={image?image:''} 
 							width={150} 
 							height={150} 
@@ -146,7 +145,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 						<p className="absolute bottom-10 z-10 font-[800]">{name}</p>
 						<div className='absolute glassNoBorder bg-[#83838356] rounded-b-full bottom-0 h-[50%] w-full'></div>
 						<Image 
-							className='rounded-full border-2 border-white'
+							className='rounded-full border-2 border-[white]'
 							src={image?image:''} 
 							width={150} 
 							height={150} 

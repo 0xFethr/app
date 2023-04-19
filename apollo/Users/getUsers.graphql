@@ -2,11 +2,11 @@ query getUsers {
 	userIndex(first: 1000) {
 		edges {
 			node {
-				address
 				id
-				imageURL
-				isPremium
 				name
+				address
+				channelAddress
+				imageURL
 				tokens
 			}
 		}

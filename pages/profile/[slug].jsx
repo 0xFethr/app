@@ -15,18 +15,19 @@ function Profile() {
 
 	const [subscriptions,setSubscriptions] = useState([])
 	const [blogs,setBlogs] = useState([])
-	
-	const {user} = useContext(AuthContext)
+		
 	const {
 		data,
-		loading
+		loading,
+		error
 	} = useQuery(GetUser,{variables:{id:slug}})
-
+	
+	console.log(data)
 	
 	useEffect(() => {
 		setProfile(data?.node)
-		setSubscriptions()
-		setBlogs()
+		setSubscriptions(data?.node?.account?.subscriptionList?.edges.map(item=>item.node))
+		setBlogs(data?.node?.account?.blogList?.edges.map(item=>item.node))
 		setId(localStorage.getItem('userID'))
 	},[loading])
 
@@ -54,8 +55,8 @@ function Profile() {
 					<BlogCard
 						key={index}
 						title={blog.title}
-						image={blog.imageURL}
-						slug={blog.slug}
+						content={blog.contentURL}
+						slug={blog.id}
 					/>
 				))}
 			</div>
@@ -69,7 +70,7 @@ function Profile() {
 							key={index}
 							profilePic={profile.imageURL}
 							name={profile.name}
-							slug={profile.slug}
+							slug={profile.id}
 						/>
 					))}
 				</div>

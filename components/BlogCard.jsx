@@ -1,7 +1,19 @@
-import React from 'react'
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-function BlogCard({ title, image, slug }) {
+import { getNFTImage } from '@/config/NFTStorage'
+
+function BlogCard({ title, content, slug }) {
+    const [image,setImage] = useState('')
+
+	useMemo(()=>{
+		const getImage = async() =>{
+			const data = await getNFTImage(content)
+			setImage(data)
+		}
+		getImage()
+	},[content])
+
     return (
         <Link className="border-2 border-[#ffffff83] rounded-3xl relative z-0 mx-10  w-[30rem] h-[20rem] inline-block" 
               href={`/blog/${slug}`}>

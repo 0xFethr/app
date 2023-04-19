@@ -4,29 +4,36 @@ import Image from 'next/image'
 import BlogCard from '@/components/BlogCard'
 import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
-import {useEffect, useState} from 'react'
 import  GetBlog from '@/apollo/Blogs/getBlog.graphql'
 import Link from 'next/link'
-import { useContractWrite, usePrepareContractWrite } from 'wagmi';
-import { NFTContract } from '@/contract';
+import { useMemo, useState } from 'react'
+import { getNFTImage,getNFTBody } from '@/config/NFTStorage'
 
 function Blog() {
 	const router = useRouter()
 	const { slug } = router.query;
 
 	const [author,setAuthor] = useState(null)
+	const [image,setImage] = useState('')
+	const [body,setBody] = useState('')
 	const [blog,setBlog] = useState([])
 	const [blogs,setBlogs] = useState([])
 	const [index,setIndex] = useState('')
 
 	const {data,loading} = useQuery(GetBlog,{variables:{id:slug}})
-
-	useEffect(() => {
-		setAuthor()
-		setBlogs()
+	console.log(blogs)
+	useMemo(() => {
 		setBlog(data?.node)
-		// write?.()
-	},[loading])
+		const getContent = async() =>{
+			const imageData = await getNFTImage(blog?.contentURL)
+			const bodyData = await getNFTBody(blog?.contentURL)
+			setImage(imageData)
+			setBody(bodyData)
+		}
+		getContent()
+		setAuthor(blog?.author)
+		setBlogs(blog?.author?.user?.account?.blogList?.edges)
+	},[loading,blog])
 
 
 	return (
@@ -43,16 +50,14 @@ function Blog() {
 					))}
 				</div>
 
-				{/* {isSuccess&&<>
-					<Image 
-						className='aspect-video w-[100%] h-[50vh] object-fill rounded-3xl grayscale ' 
-						src={getNFTData.image} 
-						alt="Image" 
-						width={500} 
-						height={500} 
-					/>
-					<p className='my-10'>{body}</p>
-				</>} */}
+				<Image 
+					className='aspect-video w-[100%] h-[50vh] object-fill rounded-3xl grayscale mb-10' 
+					src={image} 
+					alt="Image" 
+					width={500} 
+					height={500} 
+				/>
+				{parse(String(body))}
 			</div>
 
 			<div className='h-[90vh]'>
@@ -61,23 +66,22 @@ function Blog() {
 
 			<div className="flex w-[30%] items-center">
 				<div className="flex flex-col items-center gap-5  z-10">
-					{/* <Profile
-						profilePic={author?.imageURL}
-						name={author?.name}
-						slug={author?.slug}
+					<Profile
+						profilePic={author?.user?.imageURL}
+						name={author?.user?.name}
+						slug={author?.user?.id}
 						author
-					/> */}
+					/>
 
-					{/* {blogs?.map((blog, index) => (
+					{blogs?.map((blog, index) => (
 						<BlogCard
 							key={index}
 							className='shrink-10'
-							title={blog.title}
-							author={blog.author}
-							image={blog.imageURL}
-							slug={blog.slug}
+							title={blog?.node?.title}
+							content={blog?.node?.contentURL}
+							slug={blog?.node?.slug}
 						/>
-					))} */}
+					))}
 				</div>
 			</div>
 		</div>

@@ -23,8 +23,10 @@ function Search() {
 
 	const {
 		data:blogsData,
-		loading:blogLoading
+		loading:blogLoading,error
 	} = useQuery(GetBlogs)
+
+	console.log(blogsData?.blogIndex?.edges[0]?.node)
 	
 	
 	useEffect(() => {
@@ -36,11 +38,10 @@ function Search() {
 
 	},[userLoading,blogLoading])
 
-	console.log(profiles,blogs)
 
 
 	return (
-		<div className='flex flex-col items-center   w-screen  select-none pt-20 h-auto overflow-x-hidden'>
+		<div className='flex flex-col items-center   w-screen  select-none pt-20 h-auto overflow-x-hidden mb-20'>
 			<SearchBar
 				searchParam={searchParam}
 				setSearchParam={setSearchParam}
@@ -55,7 +56,7 @@ function Search() {
 						.map((profile, index) => (
 						<Profile
 							key={index}
-							imageURL={profile.imageURL}
+							profilePic={profile.imageURL}
 							name={profile.name}
 							slug={profile.id}
 						/>
@@ -70,13 +71,13 @@ function Search() {
 					(searchParam==''?true:
 					item?.title?.toLowerCase().includes(searchParam)||
 					item?.body?.toLowerCase().includes(searchParam)||
-					item?.authorID?.toLowerCase().includes(searchParam)||
+					item?.author?.user?.name?.toLowerCase().includes(searchParam)||
 					item?.tags?.includes(searchParam)))
 				.map((blog, index) => (
 					<BlogCard
 						key={index}
 						title={blog.title}
-						image={blog.imageURL}
+						content={blog.contentURL}
 						slug={blog.id}
 					/>
 				))}

@@ -1,12 +1,14 @@
 import Modal from 'react-modal';
 import Image from 'next/image';
-import { StreamContract } from '@/contract';
 import { AuthContext } from '@/context/AuthContext';
 import { useState,useContext } from 'react'
+import { usePrepareContractWrite } from 'wagmi';
+import { StreamContract } from '@/contract';
 
 function StreamBox({ author, isModalOpen, setIsModalOpen }) {
 
     const {address} = useContext(AuthContext)
+    const [amount, setAmount] = useState(0);
 
     const handleSubscription = async () => {
         //create stream
@@ -18,7 +20,7 @@ function StreamBox({ author, isModalOpen, setIsModalOpen }) {
         //remove subscription from user account
     }
 
-    const [amount, setAmount] = useState(0);
+
     const customStyles = {
         overlay: {
             position: 'fixed',
@@ -46,6 +48,26 @@ function StreamBox({ author, isModalOpen, setIsModalOpen }) {
           boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
         },
     };
+    
+    // const reciever = address
+    // const token = 'FETH'
+    // const flowRate = amount
+    
+    // const {config:createFlowConfig} = usePrepareContractWrite({
+	// 	address: StreamContract.address,
+	// 	abi: StreamContract.abi,
+	// 	functionName: 'createFlowToAddress',
+	// 	chainId:StreamContract.chain,
+	// 	args:[reciever,token,flowRate],
+	// })
+	// const { 
+	// 	data:createFlowData, 
+	// 	isSuccess,
+	// 	writeAsync:createFlow,
+	// }  = useContractWrite(createFlowConfig)
+
+
+    const res = usePrepareContractWrite({})
 
     return (
         <Modal
