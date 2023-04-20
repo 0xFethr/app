@@ -22,11 +22,10 @@ function SignUp() {
 	const AddUser = async () =>{
 		setIsUploading(true)
 		await addUser(name,image)
-
 		if(user){
 			setIsUploading(false)
 			setProfileImage(image)
-            setId(user?.id)
+            setId(localStorage.getItem('userID'))
 			localStorage.setItem('profileimage',image)
 		}
 	}

@@ -4,14 +4,35 @@ import { Router, useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AuthContext } from '@/context/AuthContext'
+import { getProfileImage } from '@/config/NFTStorage'
+
 function Navbar() {
 
 	const { scrollYProgress } = useScroll()
 	const router = useRouter()
 	const scaleX = useSpring(scrollYProgress)
 	const [id,setId] = useState('')
-	const {profileImage,session,address} = useContext(AuthContext)
+	const [image,setImage] = useState(null)
+	const {user,session,address} = useContext(AuthContext)
 	const [route,setRoute] = useState(router.asPath)
+
+	useEffect(()=>{
+		var account
+		try{
+			if(user)
+			account = JSON.parse(user)
+		}
+		catch(error){
+			console.log(error)
+		}
+		
+		console.log(account)
+		const getImage = async() =>{
+			const data = await getProfileImage(account?.node?.imageURL,account?.node?.name)
+			setImage(data)
+		}
+		getImage()
+	},[user])
 
 	useEffect(() => {
 		setRoute(router.asPath)
@@ -60,16 +81,17 @@ function Navbar() {
 					<Link className="hover:text-[white] hover:font-[400]" href={'/warden'}>my warden</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'/search'}>explore</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'/fleets'}>fleets</Link>
+					<Link className="hover:text-[white] hover:font-[400]" href={'/notifications'}>notifications</Link>
 					<Link className="hover:text-[white] hover:font-[400]" href={'https://fethfaucet.netlify.app/'}>faucet</Link>
 				</div>
 
 
 				<Link href={(!session?.isExpired&&id&&address)?`/profile/${id}`:'/join'} className=" flex flex-col relative">
 					<div className=''>
-						{profileImage?
+						{image?
 						<Image 
 							className='rounded-full'
-							src={profileImage} 
+							src={image} 
 							width={50} 
 							height={100} 
 							alt={'Feather'} 

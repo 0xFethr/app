@@ -1,20 +1,22 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState,useContext } from 'react'
 import StreamBox from './StreamBox'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getProfileImage } from '@/config/NFTStorage'
-import { optIn, optOut } from '@/config/Push'
-import { useConnect } from 'wagmi'
+import { optIn, optOut, checkChannel, checkUserSubscriptions } from '@/config/Push'
 import { AuthContext } from '@/context/AuthContext'
 import { LiveStream } from './LiveStream'
 
-function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed, channelAddress }) {
+function Profile({ profilePic, name, slug, isPremium, user, author, authorAddress=" " }) {
 
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	const [image,setImage] = useState(null)
-	const {address,signer} = useConnect(AuthContext)
+	const [isChannel,setIsChannel] = useState(false)
+	const [isSubscribed,setIsSubscribed] = useState(false)
 
-	useMemo(()=>{
+	const [image,setImage] = useState(null)
+	const {address,signer} = useContext(AuthContext)
+
+	useEffect(()=>{
 		const getImage = async() =>{
 			const data = await getProfileImage(profilePic,name)
 			setImage(data)
@@ -22,10 +24,30 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 		getImage()
 	},[profilePic])
 
+	useEffect(()=>{
+		const checkIsPush= async() =>{
+			const res = await checkChannel(address)
+			setIsChannel(res)
+
+			if(authorAddress){
+				console.log(address,authorAddress,'checked')
+				const isSub = checkUserSubscriptions(address,authorAddress)
+				setIsSubscribed(isSub)
+			}
+		}
+		checkIsPush()
+	},[address,authorAddress])
+	
+
 	const handleNotification = async () => {
-		if(isSubscribed)
-			await optIn(address,channelAddress,signer)
-		await optOut(address,channelAddress,signer)
+		if(isSubscribed){
+			await optOut(address,authorAddress,signer)
+			//add Subscription
+		}
+		else{
+			await optIn(address,authorAddress,signer)
+			//remove subscription
+		}
 	}
 
 	return (
@@ -64,7 +86,7 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 					<StreamBox
 						isModalOpen={isModalOpen}
 						setIsModalOpen={setIsModalOpen}
-						author={name}
+						author={authorAddress}
 					/>
 					<div className="flex flex-row-reverse gap-2 relative z-10">
 						{isSubscribed?<button 
@@ -127,25 +149,27 @@ function Profile({ profilePic, name, slug, isPremium, user, author, isSubscribed
 							/>
 						</button>}
 					</div>
+
 					<div className="flex gap-2 items-center">
-						{isPremium&&<Image 
-							src={'/tick.svg'} 
-							width={20} 
-							height={20} 
-							alt={'Feather'} 
-						/>}
 						<h2 className=' font-Gazapacho italic font-[1000] text-3xl opacity-80'>{name}</h2>
 					</div>
+					{!isChannel&&
+					<Link 
+						className="bg-[#B68D2E] hover:bg-[#846620] p-1 rounded-xl my-2 relative" 
+						href={'https://staging.push.org/dashboard'}>
+						Create Channel
+					</Link>}
 				</>
 			)}
 
 			{!user&&!author && (
 				<>
-					<a className="relative flex felx-col justify-center h-auto w-auto" href={`/profile/${slug}`}>
+					<a 	className="relative flex felx-col justify-center h-auto w-auto" 
+						href={`/profile/${slug}`}>
 						<p className="absolute bottom-10 z-10 font-[800]">{name}</p>
 						<div className='absolute glassNoBorder bg-[#83838356] rounded-b-full bottom-0 h-[50%] w-full'></div>
 						<Image 
-							className='rounded-full border-2 border-[white]'
+							className='rounded-full border-2 border-[#121111] object-fill'
 							src={image?image:''} 
 							width={150} 
 							height={150} 

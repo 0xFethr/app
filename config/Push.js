@@ -58,3 +58,24 @@ export const optOut = async(userAddress,channelAddress,signer) => {
 		env: 'staging'
 	})
 }
+
+export const checkUserSubscriptions = async(address, authorAddress) =>{
+	const subscriptions = await PushAPI.user.getSubscriptions({
+		user: `eip155:5:${address}`,
+		env: 'staging'
+	});
+
+	const isUserSubscribed = subscriptions.map(item=>item.channel)
+										.includes(authorAddress)
+
+	return (isUserSubscribed && subscriptions)						
+}
+
+export const checkChannel = async(address) =>{
+	
+	const channel = await PushAPI.channels.getChannel({
+		channel: `eip155:5:${address}`,
+		env: 'staging'
+	});
+	return channel&&true				
+}

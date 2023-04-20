@@ -3,7 +3,7 @@ import Quote from '@/components/Quote'
 import Slider from '@/components/Slider'
 import TopBlogs from '@/components/TopBlogs'
 import Image from 'next/image'
-import{ useMemo, useState } from 'react'
+import{ useEffect, useState } from 'react'
 import axios from 'axios'
 import Footer from '@/components/Footer'
 import SearchBar from '@/components/SearchBar'
@@ -33,7 +33,7 @@ export default function Index({quote,author}) {
 		error
 	} = useQuery(GetBlogs)
 	
-	useMemo(()=>{
+	useEffect(()=>{
 		setBlogs(blogsData?.blogIndex.edges.map(item=>item.node))
 		console.log(blogsData?.blogIndex.edges.map(item=>item.node))
 	},[blogLoading])

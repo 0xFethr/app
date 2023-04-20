@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { getNFTImage } from '@/config/NFTStorage'
 import Image from 'next/image'
 import BlogStrip from './BlogStrip'
@@ -6,19 +6,20 @@ import BlogStrip from './BlogStrip'
 function TopBlogs({ blogs }) {
 	const [selected, setSelected] = useState(0)
 	const [image, setImage] = useState('')
+	console.log(image)
 
-	useMemo(() => {
+	useEffect(() => {
 		const getContent = async() =>{
 			const imageData = await getNFTImage(blogs?.at(selected)?.contentURL)
 			setImage(imageData)
 		}
 		getContent()
-	},[selected])
+	},[blogs,selected])
 
 	return (
 		<div className="flex flex-col w-full justify-center items-center -ml-[20%] relative my-20 select-none">
 			<div className="w-full flex flex-col gap-5 items-center justify-between z-10">
-				{blogs?.slice(0,5).map((blog, index) => (
+				{blogs?.slice(0,7).map((blog, index) => (
 					<BlogStrip
 						key={index}
 						id={index}

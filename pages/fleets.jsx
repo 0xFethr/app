@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer"
 import Image from "next/image"
 import { useQuery } from "@apollo/client"
-import { useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import GetFleets from "@/apollo/Fleets/getFleets.graphql"
 import FleetStrip from "@/components/FleetStrip"
 import SearchBar from "@/components/SearchBar"
@@ -16,7 +16,7 @@ function Fleets() {
 		error
 	} = useQuery(GetFleets)
 	
-	useMemo(()=>{
+	useEffect(()=>{
 		setFleets(fleetsData?.fleetIndex.edges.map(item=>item.node))
 		console.log(fleetsData)
 	},[fleetsLoading])

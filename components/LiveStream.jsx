@@ -1,20 +1,24 @@
 import { Box, Button, Flex, Text, TextField } from '@livepeer/design-system';
 import { useCreateStream } from '@livepeer/react';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useContext, useEffect } from 'react';
+import { sendNotifications } from '@/config/Push';
+import { AuthContext } from '@/context/AuthContext';
+
 import Modal from 'react-modal';
 import Loader from './Loader';
 
 export const LiveStream = ({isModalOpen,setIsModalOpen}) => {
-  const [streamName, setStreamName] = useState('');
-  const {
-	mutate: createStream,
+	
+	const [streamName, setStreamName] = useState('');
+	const {
+	mutateAsync: createStream,
 	data: stream,
 	status,
-  } = useCreateStream(streamName ? { name: streamName } : null);
-  
-  console.log(stream?.playbackId)
-  const isLoading = useMemo(() => status === 'loading', [status]);
-  const customStyles = {
+	} = useCreateStream(streamName ? { name: streamName } : null);
+
+	const {address,signer} = useContext(AuthContext)
+	const isLoading = useMemo(() => status === 'loading', [status]);
+	const customStyles = {
 	overlay: {
 			position: 'fixed',
 			top: 0,
@@ -44,67 +48,75 @@ export const LiveStream = ({isModalOpen,setIsModalOpen}) => {
 		},
 	};
 
-  return (
-	<Modal 	isOpen={isModalOpen}
-            style={customStyles}
-            onRequestClose={()=>setIsModalOpen(false)}
-            contentLabel="LiveStream"
-        >
-		<Box
-			className='w-full mb-3 text-[black]'>
-			<TextField
-			size="3"
-			type="text"
-			placeholder="Stream name"
-			onChange={(e) => setStreamName(e.target.value)}
-			/>
-	  	</Box>
+	const createLiveStream = async()	=>{
+		await createStream?.()
+	}
 
-	  {stream &&
-		stream.rtmpIngestUrl &&
-		(!stream?.playbackUrl || !stream.isActive) && (
-		  <Text 
-		  	size="3" 
-			variant="gray" 
-			className='mt-4 mb-3'>
-			Use the ingest URL rtmp://rtmp.livepeer.com/live and key
-			<code> {stream.rtmpIngestUrl.match(/\/([^\/]+)$/)[1]} </code> 
-			in a stream client like OBS to see content below.
+	useEffect(() => {
+		if(stream)
+			sendNotifications(address,signer,`stream ID = ${stream?.playbackId}`,`New Livestream ${streamName}`)
+	}, [stream])
+	
 
-		  </Text>
-		)}
+	return (
+		<Modal 	isOpen={isModalOpen}
+				style={customStyles}
+				onRequestClose={()=>setIsModalOpen(false)}
+				contentLabel="LiveStream"
+			>
+			<Box
+				className='w-full mb-3 text-[black]'>
+				<TextField
+				size="3"
+				type="text"
+				placeholder="Stream name"
+				onChange={(e) => setStreamName(e.target.value)}
+				/>
+			</Box>
 
-		<a className="underline opacity-30 hover:opacity-60" href="http://">Link to OBS</a>
+			{stream &&
+			stream.rtmpIngestUrl &&
+			(!stream?.playbackUrl || !stream.isActive) && (
+				<Text 
+				size="3" 
+				variant="gray" 
+				className='mt-4 mb-3'>
+				Use the ingest URL rtmp://rtmp.livepeer.com/live and key
+				<code> {stream.rtmpIngestUrl.match(/\/([^\/]+)$/)[1]} </code> 
+				in a stream client like OBS to see content below.
 
-	  {stream?.playbackId && (
-		<Box className='mt-3 h-full w-full flex items-center justify-center relative z-40'>
-			<iframe
-				src={`https://lvpr.tv?v=${stream.playbackId}`}
-				width={'100%'}
-				height={'100%'}
-				allowFullScreen
-				allow="autoplay; encrypted-media; picture-in-picture"
-				sandbox="allow-scripts"
-			/>
-		</Box>
-	  )}
+				</Text>
+			)}
 
-	  <Flex className=' justify-end gap-3 mt-4'>
-		{!stream && (
-		  <Button
-			className='flex items-center '
-			onClick={() => {
-			  createStream?.();
-			}}
-			size="2"
-			disabled={isLoading || !createStream}
-			variant="purple"
-		  >
-			{isLoading && <Loader/>}
-			Create Stream
-		  </Button>
-		)}
-	  </Flex>
-	</Modal>
-  );
+			<a className="underline opacity-30 hover:opacity-60" href="http://">Link to OBS</a>
+
+			{stream?.playbackId && (
+			<Box className='mt-3 h-full w-full flex items-center justify-center relative z-40'>
+				<iframe
+					src={`https://lvpr.tv?v=${stream.playbackId}`}
+					width={'100%'}
+					height={'100%'}
+					allowFullScreen
+					allow="autoplay; encrypted-media; picture-in-picture"
+					sandbox="allow-scripts"
+				/>
+			</Box>
+			)}
+
+			<Flex className=' justify-end gap-3 mt-4'>
+			{!stream && (
+				<Button
+				className='flex items-center '
+				onClick={createLiveStream}
+				size="2"
+				disabled={isLoading || !createStream}
+				variant="purple"
+				>
+				{isLoading && <Loader/>}
+				Create Stream
+				</Button>
+			)}
+			</Flex>
+		</Modal>
+	);
 };

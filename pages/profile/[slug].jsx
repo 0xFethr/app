@@ -45,12 +45,13 @@ function Profile() {
 			<ProfileComponent
 				profilePic={profile?.imageURL}
 				name={profile?.name}
+				authorAddress={profile?.address}
 				slug={profile?.slug}
 				isPremium={profile?.isPremium}
 				author
 			/>}
 
-			<div className='grid grid-cols-3 gap-10 grid-flow-row-dense pt-[2%] z-20'>
+			<div className='grid grid-cols-3 gap-10 grid-flow-row-dense pt-[2%] z-0'>
 				{blogs?.map((blog, index) => (
 					<BlogCard
 						key={index}

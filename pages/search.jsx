@@ -72,7 +72,7 @@ function Search() {
 					item?.title?.toLowerCase().includes(searchParam)||
 					item?.body?.toLowerCase().includes(searchParam)||
 					item?.author?.user?.name?.toLowerCase().includes(searchParam)||
-					item?.tags?.includes(searchParam)))
+					item?.tags?.map(item=>item.name).includes(searchParam)))
 				.map((blog, index) => (
 					<BlogCard
 						key={index}

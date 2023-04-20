@@ -39,13 +39,13 @@ function Publish() {
 			alert("Please login first")
 			return
 		}
-		await createNFT?.()	
-
+		await (await createNFT?.()).wait()
+		
 		if(!session.isExpired){
 			await addBlog({variables:{ 
 				title: title, 
 				contentURL:contentURL,
-				address: createNFTData?.hash, 
+				address: "0x78eF1d67D3b4C05622e3BDBBeC440B0E420F5160", 
 				isFree: free, 
 				tags:  tags
 			},})
@@ -71,7 +71,6 @@ function Publish() {
 	})
 	const { 
 		data:createNFTData, 
-		isSuccess,
 		writeAsync:createNFT,
 	}  = useContractWrite(creatBlogConfig)
 
@@ -79,9 +78,7 @@ function Publish() {
 	useEffect(()=>{
 		if(!address||session?.isExpired)
 			router.push('/join')
-		if(createNFTData)
-			console.log("Minted", createNFTData)
-	},[isSuccess,address,session?.isExpired])
+	},[address,session?.isExpired])
 
 
 	return(

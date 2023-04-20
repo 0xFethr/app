@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getNFTImage } from '@/config/NFTStorage'
@@ -6,7 +6,7 @@ import { getNFTImage } from '@/config/NFTStorage'
 function BlogCard({ title, content, slug }) {
     const [image,setImage] = useState('')
 
-	useMemo(()=>{
+	useEffect(()=>{
 		const getImage = async() =>{
 			const data = await getNFTImage(content)
 			setImage(data)

@@ -86,7 +86,7 @@ export function AuthProvider({children}) {
 		return addUserData
 	}
 	
-	const [addComposeUser, { data:addUserData, loading:addUserLoading }] = useMutation(AddUser);
+	const [addComposeUser, { data:addUserData, loading:addUserLoading ,error}] = useMutation(AddUser);
 	const {refetch:getUser,error:getUserError, data:userData} = useQuery(GetUser)
 	
 	const {open, setDefaultChain } = useWeb3Modal()
@@ -96,7 +96,6 @@ export function AuthProvider({children}) {
 
 	const [session,setSession] = useState(null)
 	const [user,setUser] = useState(null)
-	const [profileImage,setProfileImage] = useState(null)
 
 	useEffect(()=>{
 		if(address)
@@ -104,12 +103,12 @@ export function AuthProvider({children}) {
 		// console.log(session?.did?._id, "poop")
 		setSession(localStorage.getItem("didsession"))
 		setUser(localStorage.getItem("user"))
-		setProfileImage(localStorage.getItem("profileimage"))
+
 	},[session?.isExpired,address])
 
 	useEffect(()=>{
 		if(address)
-			setUser(addUserData?.createUser.document.id)
+			setUser(addUserData?.createUser?.document?.id)
 	},[addUserLoading])
 
 
@@ -123,9 +122,6 @@ export function AuthProvider({children}) {
 			addUser,
 			authenticate,
 			logIn,
-
-			profileImage,
-			setProfileImage,
 		}}>
 			{children}
 		</AuthContext.Provider>

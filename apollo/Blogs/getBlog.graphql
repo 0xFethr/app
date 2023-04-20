@@ -16,6 +16,7 @@ query getBlog($id:ID!) {
 						}
 					}
 					id
+					address
 					name
 					imageURL	
 				}

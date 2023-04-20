@@ -2,18 +2,86 @@ export const StreamABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "contract ISuperfluid",
-				"name": "host",
-				"type": "address"
+				"internalType": "int96",
+				"name": "flowRate",
+				"type": "int96"
 			},
 			{
 				"internalType": "address",
-				"name": "_owner",
+				"name": "receiver",
+				"type": "address"
+			}
+		],
+		"name": "createStream",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "receiver",
+				"type": "address"
+			}
+		],
+		"name": "deleteStream",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract ISuperfluid",
+				"name": "_host",
+				"type": "address"
+			},
+			{
+				"internalType": "contract ISuperToken",
+				"name": "_goerliDaiX",
 				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "int96",
+				"name": "flowRate",
+				"type": "int96"
+			},
+			{
+				"internalType": "address",
+				"name": "receiver",
+				"type": "address"
+			}
+		],
+		"name": "updateStream",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "accountList",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -34,21 +102,16 @@ export const StreamABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "goerliDaiX",
+		"outputs": [
 			{
 				"internalType": "contract ISuperToken",
-				"name": "token",
+				"name": "",
 				"type": "address"
-			},
-			{
-				"internalType": "int96",
-				"name": "flowRate",
-				"type": "int96"
 			}
 		],
-		"name": "createFlowIntoContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -57,129 +120,36 @@ export const StreamABI = [
 				"internalType": "address",
 				"name": "reciever",
 				"type": "address"
-			},
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "int96",
-				"name": "flowRate",
-				"type": "int96"
 			}
 		],
-		"name": "createFlowToAddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"name": "isFlowing",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "flowRate",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "reciever",
-				"type": "address"
-			},
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
+				"name": "receiver",
 				"type": "address"
 			}
 		],
-		"name": "deleteFlowFromContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "deleteFlowIntoContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "sendTokenToContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "reciver",
-				"type": "address"
-			},
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			},
+		"name": "readFlowRate",
+		"outputs": [
 			{
 				"internalType": "int96",
 				"name": "flowRate",
 				"type": "int96"
 			}
 		],
-		"name": "updateFlowFromContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "int96",
-				"name": "flowRate",
-				"type": "int96"
-			}
-		],
-		"name": "updateFlowIntoContract",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract ISuperToken",
-				"name": "token",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"name": "withdrawFunds",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]

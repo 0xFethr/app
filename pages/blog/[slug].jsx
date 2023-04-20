@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import  GetBlog from '@/apollo/Blogs/getBlog.graphql'
 import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getNFTImage,getNFTBody } from '@/config/NFTStorage'
 
 function Blog() {
@@ -18,22 +18,22 @@ function Blog() {
 	const [body,setBody] = useState('')
 	const [blog,setBlog] = useState([])
 	const [blogs,setBlogs] = useState([])
-	const [index,setIndex] = useState('')
+	const {data,networkStatus} = useQuery(GetBlog,{variables:{id:slug}})
 
-	const {data,loading} = useQuery(GetBlog,{variables:{id:slug}})
-	console.log(blogs)
-	useMemo(() => {
+	useEffect(() => {
 		setBlog(data?.node)
+		setBlogs(data?.node?.author?.user?.account?.blogList?.edges)
+		setAuthor(data?.node?.author)
+
 		const getContent = async() =>{
-			const imageData = await getNFTImage(blog?.contentURL)
-			const bodyData = await getNFTBody(blog?.contentURL)
+			const imageData = await getNFTImage(data?.node?.contentURL)
+			const bodyData = await getNFTBody(data?.node?.contentURL)
+			console.log(data?.node?.contentURL)
 			setImage(imageData)
 			setBody(bodyData)
 		}
 		getContent()
-		setAuthor(blog?.author)
-		setBlogs(blog?.author?.user?.account?.blogList?.edges)
-	},[loading,blog])
+	},[networkStatus])
 
 
 	return (
@@ -64,12 +64,13 @@ function Blog() {
 				<div className="lineApp90"></div>
 			</div>
 
-			<div className="flex w-[30%] items-center">
-				<div className="flex flex-col items-center gap-5  z-10">
+			<div className="flex h-[50%] w-[30%] items-center">
+				<div className="flex flex-col items-center justify-start gap-5 z-10">
 					<Profile
 						profilePic={author?.user?.imageURL}
 						name={author?.user?.name}
 						slug={author?.user?.id}
+						authorAddress={author?.user?.address}
 						author
 					/>
 
@@ -79,7 +80,7 @@ function Blog() {
 							className='shrink-10'
 							title={blog?.node?.title}
 							content={blog?.node?.contentURL}
-							slug={blog?.node?.slug}
+							slug={blog?.node?.id}
 						/>
 					))}
 				</div>

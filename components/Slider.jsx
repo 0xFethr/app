@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { getNFTImage } from '@/config/NFTStorage'
 
 
@@ -8,13 +8,14 @@ function Slider({ blogs }) {
 	const [N, setN] = useState(0)
 	const [image, setImage] = useState('')
 
-	useMemo(() => {
+	console.log(image)
+	useEffect(() => {
 		const getContent = async() =>{
 			const imageData = await getNFTImage(blogs?.at(N)?.contentURL)
 			setImage(imageData)
 		}
 		getContent()
-	},[N])
+	},[blogs,N])
 
 	return (
 		<>
